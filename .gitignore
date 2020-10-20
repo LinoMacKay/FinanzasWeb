@@ -5,6 +5,8 @@
 
 # User-specific files
 *.rsuser
+/Documentos
+
 *.suo
 *.user
 *.userosscache
