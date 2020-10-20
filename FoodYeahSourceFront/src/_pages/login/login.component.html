@@ -1,0 +1,27 @@
+
+
+<div class="login">
+
+
+    <form class="custom-form">
+      <img src="../../assets/FutureMarket.png"> 
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Correo Electronico"
+        required="required"
+      />
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Constraseña"
+        required="required"
+      />
+      <button type="submit" (click)="logIn()">Iniciar Sesion</button>
+      <br>
+      <button id="register" type="button" routerLink="/register">Crear una cuenta</button>
+       <br>
+    </form>
+  </div>

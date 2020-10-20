@@ -1,0 +1,66 @@
+<div class="example-container">
+  <mat-toolbar  class="example-toolbar" *ngIf="loginService.isLogged()">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+
+
+    <h1 class="title" routerLink="/home" class="example-app-name">Future Market</h1>
+
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+
+      <button mat-menu-item routerLink="" (click)="sidenav.opened = false" (click)="loginService.signOut()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sidenav mode="side" style="width: 200px">
+      <button mat-menu-item (click)="sidenav.toggle()" routerLink="/home" style="cursor: pointer">
+        <mat-icon>house</mat-icon>
+        <span>Inicio</span>
+      </button>
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item (click)="sidenav.toggle()" routerLink="/products" style="cursor: pointer">
+        <mat-icon>fastfood</mat-icon>
+        <span>Producto</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="sidenav.toggle()" routerLink="/orders" style="cursor: pointer">
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Ordenes</span>
+      </button>
+
+      <div *ngIf="User != 'USER'">
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/product_categories" style="cursor: pointer">
+          <mat-icon>category</mat-icon>
+          <span>Categoria de Productos</span>
+        </button>
+
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="sidenav.toggle()" routerLink="/cards" style="cursor: pointer">
+          <mat-icon>credit_card</mat-icon>
+          <span>Tarjetas</span>
+        </button>
+      </div>
+
+    </mat-sidenav>
+
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
