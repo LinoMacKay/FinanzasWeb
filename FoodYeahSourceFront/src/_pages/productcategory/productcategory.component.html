@@ -10,17 +10,12 @@
     <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="nombre" >
             <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.productCategoryName}} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.product_CategoryName}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.productCategoryDescription}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.product_CategoryDescription}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="state">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.state}} </mat-cell>
-        </ng-container>
-   
         <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
             <mat-cell *matCellDef="let row">

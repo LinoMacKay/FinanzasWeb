@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
   products: Array<Product>;
   dataSource: MatTableDataSource<Product>;
   
-  displayedColumns: string[] = ['nombre','precio','stock', 'categoria','state','acciones'];
+  displayedColumns: string[] = ['nombre','precio','stock', 'categoria','acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
     this.User= this.loginService.getUser();
 
     this.productService.productsChange.subscribe(data => {
-      this.dataSource = new MatTableDataSource<Product>(data);
+      this.dataSource = new MatTableDataSource<Product>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -43,10 +43,10 @@ export class ProductComponent implements OnInit {
     });
   
     this.productService.getAllProducts().subscribe(data => {
-      this.dataSource = new MatTableDataSource<Product>(data);
+      this.dataSource = new MatTableDataSource<Product>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.products = data;
+      this.products = data.items;
     });
 
     
@@ -73,7 +73,7 @@ openDialog(product?: Product) {
 }
 
 delete(product: Product) {
-  this.productService.deleteProduct(product.id).subscribe(data => {
+  this.productService.deleteProduct(product.productId).subscribe(data => {
     this.productService.getAllProducts().subscribe(products => {
       this.productService.productsChange.next(products);
       this.productService.message.next("Se elimino");

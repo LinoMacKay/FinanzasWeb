@@ -19,12 +19,12 @@ export class ProductlistComponent implements OnInit {
     var n = d.getDay();
 
     this.productService.getPlatoCarta().subscribe(data => {
-      this.products = data;
+      this.products = data.items;
       console.log(this.products);
     });
 
     this.productService.getMenuDelDia(n).
-      map((products: Array<Product>) => products.filter(x => x.category.id === 2))
+      map((products: Array<Product>) => products.filter(x => x.category.product_CategoryId === 2))
       .subscribe(data => this.menudeldia = data);
 
     // this.productService.getMenuDelDia(n).subscribe(data => {

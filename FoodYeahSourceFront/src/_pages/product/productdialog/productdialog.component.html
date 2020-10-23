@@ -3,11 +3,11 @@
         <mat-tab label="Producto">
 
             <mat-form-field>
-                <input matInput placeholder="Nombre del producto" formControlName="productName">
+                <input matInput placeholder="Nombre del producto" formControlName="productName" [formGroup]="form">
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Precio" type="number" formControlName="productPrice">
+                <input matInput placeholder="Precio" type="number" formControlName="productPrice"[formGroup]="form">
             </mat-form-field>
 
             <mat-form-field>
@@ -21,9 +21,9 @@
 
             <mat-form-field>
                 <mat-label>Categoria</mat-label>
-                <mat-select formControlName="category" required>
+                <mat-select formControlName="category" required [formGroup]="form">
                     <mat-option *ngFor="let opcion of opciones" [value]="opcion">
-                        {{opcion.productCategoryName}}
+                        {{opcion.product_CategoryName}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

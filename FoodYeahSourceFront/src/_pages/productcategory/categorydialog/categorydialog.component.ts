@@ -24,24 +24,25 @@ export class CategorydialogComponent implements OnInit {
  
   ngOnInit(): void {
     this.productCategory = new ProductCategory();
-    this.productCategory.productCategoryName = this.data.productCategoryName;
-    this.productCategory.productCategoryDescription = this.data.productCategoryDescription;
+    this.productCategory.product_CategoryName = this.data.product_CategoryName;
+    this.productCategory.product_CategoryDescription = this.data.product_CategoryDescription;
     this.productCategory.state = 'UPDATED';
-    this.productCategory.id= this.data.id;
-    
+    this.productCategory.product_CategoryId= this.data.product_CategoryId;
+    console.log(this.data.product_CategoryName)
     
     this.Creado = new Boolean();
     this.Creado = false
-    if (this.productCategory != null && this.productCategory.id > 0) {
+    if (this.productCategory != null && this.productCategory.product_CategoryId > 0) {
       this.Creado = true;
     }
     
     if (this.Creado == true) {
       this.form = this.fb.group({
-        productCategoryName: new FormControl(this.data.productCategoryName),
-        productCategoryDescription: new FormControl(this.data.productCategoryDescription),
+        productCategoryName: new FormControl(this.data.product_CategoryName),
+        productCategoryDescription: new FormControl(this.data.product_CategoryDescription),
       });
-
+      
+      console.log(this.form)
     }
     else {
 
@@ -51,18 +52,16 @@ export class CategorydialogComponent implements OnInit {
       });
     }
   
-  
   }
 
 
   registerOrUpdate() {
    
-    this.productCategory.productCategoryName = this.form.value['productCategoryName'];
-    this.productCategory.productCategoryDescription = this.form.value['productCategoryName'];
-
+    this.productCategory.product_CategoryName = this.form.value['productCategoryName'];
+    this.productCategory.product_CategoryDescription = this.form.value['productCategoryDescription'];
 
     if (this.Creado == false) {
-      this.productCategory.id = null;
+      this.productCategory.product_CategoryId = null;
       this.productCategoryService.registerProductCategory(this.productCategory).subscribe(data => {
         this.productCategoryService.getAllProductsCategories().subscribe(savings => {
           this.productCategoryService.productsChange.next(savings);
@@ -71,7 +70,7 @@ export class CategorydialogComponent implements OnInit {
       });
     }
     else {
-      this.productCategoryService.updateProductCategory(this.productCategory.id, this.productCategory).subscribe(data => {
+      this.productCategoryService.updateProductCategory(this.productCategory.product_CategoryId, this.productCategory).subscribe(data => {
         this.productCategoryService.getAllProductsCategories().subscribe(savings => {
           this.productCategoryService.productsChange.next(savings);
           this.productCategoryService.message.next("Se actualizo");

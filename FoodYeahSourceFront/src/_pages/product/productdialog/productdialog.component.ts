@@ -21,6 +21,7 @@ export class ProductdialogComponent implements OnInit {
 
   opciones: Array<ProductCategory>;
   form: FormGroup;
+  test:any;
   product: Product;
   ingredients: Array<string>;
   created: Boolean;
@@ -34,22 +35,21 @@ export class ProductdialogComponent implements OnInit {
     this.product.productName = this.data.productName;
     this.product.stock = this.data.stock;
     this.product.productPrice = this.data.productPrice;
-    this.product.sellday = this.data.sellday;
+    this.product.sellDay = this.data.sellDay;
     this.product.category = this.data.category;
     this.product.imageUrl = this.data.imageUrl;
-    this.product.id = this.data.id;
+    this.product.productId = this.data.productId;
     this.product.ingredients = this.ingredients;
-    this.product.category = this.data.category;
 
 
     this.productcategoryService.getAllProductsCategories().subscribe(
-      data => { this.opciones = data });
+      data => { this.opciones = data.items });
 
-
+  
 
     this.created = new Boolean();
     this.created = false;
-    if (this.product != null && this.product.id > 0) {
+    if (this.product != null && this.product.productId > 0) {
       this.created = true;
     }
 
@@ -59,12 +59,13 @@ export class ProductdialogComponent implements OnInit {
         productName: new FormControl(this.data.productName),
         productPrice: new FormControl(this.data.productPrice),
         stock: new FormControl(this.data.stock),
-        sellDay: new FormControl(this.data.sellday),
+        sellDay: new FormControl(this.data.sellDay),
         imageUrl: new FormControl(this.data.imageUrl),
-        category: new FormControl(this.data.category.id)
+        category: new FormControl(this.data.category)
       });
 
     }
+    
     else {
       this.ingredients = new Array<string>();
 
@@ -77,6 +78,7 @@ export class ProductdialogComponent implements OnInit {
         imageUrl: new FormControl('')
       });
     }
+
   }
   registerOrUpdate() {
     let productCategory = new ProductCategory();
@@ -84,13 +86,12 @@ export class ProductdialogComponent implements OnInit {
     this.product.productName = this.form.value['productName'];
     this.product.stock = this.form.value['stock'];
     this.product.productPrice = this.form.value['productPrice'];
-    this.product.sellday = this.form.value['sellDay'];
-    this.product.category = productCategory;
+    this.product.sellDay = this.form.value['sellDay'];
+    this.product.product_CategoryId = productCategory.product_CategoryId;
     this.product.imageUrl = this.form.value['imageUrl'];
     this.product.ingredients = this.ingredients;
-
     if (this.created == false) {
-      this.product.id = null;
+      this.product.productId = null;
       this.productService.registerProduct(this.product).subscribe(data => {
         this.productService.getAllProducts().subscribe(savings => {
           this.productService.productsChange.next(savings);
@@ -99,13 +100,14 @@ export class ProductdialogComponent implements OnInit {
       });
     }
     else {
-      this.productService.updateProduct(this.product.id, this.product).subscribe(data => {
+      this.productService.updateProduct(this.product.productId, this.product).subscribe(data => {
         this.productService.getAllProducts().subscribe(savings => {
           this.productService.productsChange.next(savings);
           this.productService.message.next("Se actualizo");
         });
       });
     }
+    console.log(this.product)
     this.dialogRef.close();
   }
   AddIngredients(newIngredient: string) {
@@ -114,6 +116,7 @@ export class ProductdialogComponent implements OnInit {
   DeleteLastIngredient() {
     this.ingredients.pop();
   }
+  
   close() {
     this.dialogRef.close();
   }

@@ -15,65 +15,70 @@ import { CategorydialogComponent } from './categorydialog/categorydialog.compone
   styleUrls: ['./productcategory.component.css']
 })
 export class ProductcategoryComponent implements OnInit {
-  User:string;
-  productCategories:Array<ProductCategory>;
+  User: string;
+  productCategories: Array<ProductCategory>;
   dataSource: MatTableDataSource<ProductCategory>;
-  displayedColumns: string[] = ['nombre','description','state','acciones'];
+  displayedColumns: string[] = ['nombre', 'description', 'acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private productCategoryService:ProductCategoryService,
-     private dialog:MatDialog,
-    private snackBar:MatSnackBar, private loginService:LoginService) { }
+  constructor(private productCategoryService: ProductCategoryService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar, private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.User= this.loginService.getUser();
+    this.User = this.loginService.getUser();
 
 
     this.productCategoryService.productsChange.subscribe(data => {
-      this.dataSource = new MatTableDataSource<ProductCategory>(data);
+      this.dataSource = new MatTableDataSource<ProductCategory>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-  });
-
-  this.productCategoryService.message.subscribe(data => {
-    this.snackBar.open(data, 'Aviso', { duration: 2000 });
-  });
-
-  this.productCategoryService.getAllProductsCategories().subscribe(data => {
-    this.dataSource = new MatTableDataSource<ProductCategory>(data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.productCategories = data;
-  });
-
-
-
-}
-
-
-applyFilter(filterValue: string) {
-  filterValue = filterValue.trim();
-  filterValue = filterValue.toLowerCase();
-  this.dataSource.filter = filterValue;
-}
-
-openDialog(productCategory?: ProductCategory) {
-  let categorydialog = productCategory != null ? productCategory : new ProductCategory();
-  this.dialog.open(CategorydialogComponent, {
-    width: '250px',
-    disableClose: false,
-    data: categorydialog
-  })
-}
-
-delete(productCategory: ProductCategory) {
-  this.productCategoryService.deleteProductCategory(productCategory.id).subscribe(data => {
-    this.productCategoryService.getAllProductsCategories().subscribe(products => {
-      this.productCategoryService.productsChange.next(products);
-      this.productCategoryService.message.next("Se elimino");
     });
-  });
-}
+
+
+    this.productCategoryService.getAllProductsCategories().subscribe(data => {
+      console.log(data.items)
+    })
+
+    this.productCategoryService.message.subscribe(data => {
+      this.snackBar.open(data, 'Aviso', { duration: 2000 });
+    });
+
+    this.productCategoryService.getAllProductsCategories().subscribe(data => {
+      this.dataSource = new MatTableDataSource<ProductCategory>(data.items);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.productCategories = data.items;
+    });
+
+
+
+  }
+
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  openDialog(productCategory?: ProductCategory) {
+    let categorydialog = productCategory != null ? productCategory : new ProductCategory();
+    this.dialog.open(CategorydialogComponent, {
+      width: '250px',
+      disableClose: false,
+      data: categorydialog
+    })
+  }
+
+  delete(productCategory: ProductCategory) {
+    this.productCategoryService.deleteProductCategory(productCategory.product_CategoryId).subscribe(data => {
+      this.productCategoryService.getAllProductsCategories().subscribe(products => {
+        this.productCategoryService.productsChange.next(products);
+        this.productCategoryService.message.next("Se elimino");
+      });
+    });
+  }
 
 }
