@@ -19,8 +19,8 @@ import { LoginService } from 'src/_service/login.service';
 })
 export class ProductComponent implements OnInit {
   User:string;
-  products: Array<Product>;
-  dataSource: MatTableDataSource<Product>;
+  products: Array<any>;
+  dataSource: MatTableDataSource<any>;
   
   displayedColumns: string[] = ['nombre','precio','stock', 'categoria','acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -32,8 +32,8 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.User= this.loginService.getUser();
 
-    this.productService.productsChange.subscribe(data => {
-      this.dataSource = new MatTableDataSource<Product>(data.items);
+    this.productService.productsChange.subscribe((data: any)=> {
+      this.dataSource = new MatTableDataSource<any>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -42,8 +42,8 @@ export class ProductComponent implements OnInit {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
   
-    this.productService.getAllProducts().subscribe(data => {
-      this.dataSource = new MatTableDataSource<Product>(data.items);
+    this.productService.getAllProducts().subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource<any>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.products = data.items;

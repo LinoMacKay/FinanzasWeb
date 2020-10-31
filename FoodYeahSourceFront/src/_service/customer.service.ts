@@ -18,7 +18,7 @@ export class CustomerService {
 
   getAllCustomers(){
     let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-    return this.http.get<Customer[]>(this.url, {
+    return this.http.get<any[]>(this.url, {
       headers: new HttpHeaders().set('Authorization',
         `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
@@ -26,7 +26,7 @@ export class CustomerService {
 
     getCustomerByUserName(username){
       let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-      return this.http.get<Customer>(`${this.url}/user=${username}`, {
+      return this.http.get<any>(`${this.url}/user=${username}`, {
         headers: new HttpHeaders().set('Authorization',
           `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
@@ -35,7 +35,7 @@ export class CustomerService {
 
     getOnlyCustomer(){
       let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-      return this.http.get<Customer[]>(`${this.url}/onlycustomers`, {
+      return this.http.get<any[]>(`${this.url}/onlycustomers`, {
         headers: new HttpHeaders().set('Authorization',
           `bearer ${access_token}`).set('Content-Type', 'application/json')
       })
@@ -51,7 +51,7 @@ export class CustomerService {
 
     getById(clientId: number) {
       let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-      return this.http.get<Customer>(`${this.url}/${clientId}`, {
+      return this.http.get<any>(`${this.url}/${clientId}`, {
         headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
       });
     }

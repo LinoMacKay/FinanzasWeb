@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Customer } from 'src/_model/customer';
 import { CustomerService } from 'src/_service/customer.service';
+import { LoginService } from 'src/_service/login.service';
 
 @Component({
   selector: 'app-clients',
@@ -15,16 +16,20 @@ import { CustomerService } from 'src/_service/customer.service';
 export class ClientsComponent implements OnInit {
 
 
-  dataSource: MatTableDataSource<Customer>;
+  User:any;
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['nombre', 'description', 'loc','fee','acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private customerService:CustomerService,private router:Router) { }
+  constructor(private customerService:CustomerService,private router:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
-    this.customerService.getOnlyCustomer().subscribe(data =>{
-      this.dataSource = new MatTableDataSource<Customer>(data.items);
+
+    this.User = this.loginService.getUser()
+
+    this.customerService.getOnlyCustomer().subscribe((data:any) =>{
+      this.dataSource = new MatTableDataSource<any>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })

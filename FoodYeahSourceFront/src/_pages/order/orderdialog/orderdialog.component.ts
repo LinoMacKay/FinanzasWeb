@@ -43,11 +43,11 @@ export class OrderdialogComponent implements OnInit {
 
     this.email = this.loginservice.getEmail();
 
-    this.productService.getAllProducts().subscribe(data=>{
+    this.productService.getAllProducts().subscribe((data :any) =>{
       this.productos = data.items;
     });
 
-    this.customerService.getAllCustomers().subscribe(data=>{
+    this.customerService.getAllCustomers().subscribe((data:any)=>{
       this.customers = data.items;
     })
    

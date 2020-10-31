@@ -58,7 +58,7 @@ export class OrderComponent {
     if(this.User == 'USER'){
     this.orderService.getAllOrders().
     map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username ))
-    .subscribe(data => {
+    .subscribe((data: any) => {
       this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -66,7 +66,7 @@ export class OrderComponent {
     });}
     else {
       this.orderService.getAllOrders()
-    .subscribe(data => {
+    .subscribe((data:any) => {
       this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -75,7 +75,7 @@ export class OrderComponent {
 
   
     this.Username = this.loginService.getUserName();
-    this.orderService.ordersChange.subscribe(data => {
+    this.orderService.ordersChange.subscribe((data:any) => {
       this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

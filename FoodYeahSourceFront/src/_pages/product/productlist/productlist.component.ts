@@ -18,7 +18,7 @@ export class ProductlistComponent implements OnInit {
     var d = new Date();
     var n = d.getDay();
 
-    this.productService.getPlatoCarta().subscribe(data => {
+    this.productService.getPlatoCarta().subscribe((data:any) => {
       this.products = data.items;
       console.log(this.products);
     });

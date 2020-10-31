@@ -6,6 +6,7 @@ export class Customer {
     username:string;
     password:string;
     customerName:string;
+    customerLastName:string;
     email:string;
     userEmail:string;
     customerAge:number;

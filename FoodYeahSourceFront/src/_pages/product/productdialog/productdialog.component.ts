@@ -19,7 +19,7 @@ import { ProductCategoryService } from 'src/_service/productcategory.service';
 })
 export class ProductdialogComponent implements OnInit {
 
-  opciones: Array<ProductCategory>;
+  opciones: Array<any>;
   form: FormGroup;
   test:any;
   product: Product;
@@ -42,7 +42,7 @@ export class ProductdialogComponent implements OnInit {
 
 
     this.productcategoryService.getAllProductsCategories().subscribe(
-      data => { this.opciones = data.items });
+      (data: any) => { this.opciones = data.items });
 
   
 

@@ -18,7 +18,7 @@ export class ProductService {
 
   getAllProducts(){
     let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-    return this.http.get<Product[]>(this.url, {
+    return this.http.get<any[]>(this.url, {
       headers: new HttpHeaders().set('Authorization',
         `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
@@ -26,7 +26,7 @@ export class ProductService {
 
   getProductById(productsId: number){
     let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
-    return this.http.get<Product[]>(`${this.url}/${productsId}`, {
+    return this.http.get<any[]>(`${this.url}/${productsId}`, {
       headers: new HttpHeaders().set('Authorization',
         `bearer ${access_token}`).set('Content-Type', 'application/json')
     });

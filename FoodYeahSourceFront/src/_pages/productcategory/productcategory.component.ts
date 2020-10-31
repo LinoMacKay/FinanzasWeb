@@ -16,8 +16,8 @@ import { CategorydialogComponent } from './categorydialog/categorydialog.compone
 })
 export class ProductcategoryComponent implements OnInit {
   User: string;
-  productCategories: Array<ProductCategory>;
-  dataSource: MatTableDataSource<ProductCategory>;
+  productCategories: Array<any>;
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['nombre', 'description', 'acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -30,23 +30,21 @@ export class ProductcategoryComponent implements OnInit {
     this.User = this.loginService.getUser();
 
 
-    this.productCategoryService.productsChange.subscribe(data => {
-      this.dataSource = new MatTableDataSource<ProductCategory>(data.items);
+    this.productCategoryService.productsChange.subscribe((data:any) => {
+      this.dataSource = new MatTableDataSource<any>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
 
 
-    this.productCategoryService.getAllProductsCategories().subscribe(data => {
-      console.log(data.items)
-    })
+
 
     this.productCategoryService.message.subscribe(data => {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
 
-    this.productCategoryService.getAllProductsCategories().subscribe(data => {
-      this.dataSource = new MatTableDataSource<ProductCategory>(data.items);
+    this.productCategoryService.getAllProductsCategories().subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource<any>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.productCategories = data.items;
