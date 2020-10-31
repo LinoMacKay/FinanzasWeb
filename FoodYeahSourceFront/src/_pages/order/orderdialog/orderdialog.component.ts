@@ -25,40 +25,38 @@ export class OrderdialogComponent implements OnInit {
   Username:string;
   customer: Customer;
   order: Order;
+  email:string;
   customers:Array<Customer>;
   orderDetails: Array<OrderDetail>;
   productos: Array<Product>;
-  producto;
+  producto:Product;
   productoSeleccionado:Product;
   constructor(private orderService: OrderService, @Inject(MAT_DIALOG_DATA) public data: Customer,@Inject(MAT_DIALOG_DATA) public dataProduct: Product
     , private dialogRef: MatDialogRef<OrderdialogComponent>,private productService:ProductService, private customerService:CustomerService,private loginservice:LoginService) {
      }
 
   ngOnInit() {
-   
-
-  
-    this.Username = this.loginservice.getUserName();
-
     this.producto = new Product();
     this.producto = this.dataProduct;
     this.orderDetails = new Array<OrderDetail>();
     this.order = new Order();
 
+    this.email = this.loginservice.getEmail();
+
     this.productService.getAllProducts().subscribe(data=>{
-      this.productos = data;
+      this.productos = data.items;
     });
+
     this.customerService.getAllCustomers().subscribe(data=>{
-      this.customers = data;
+      this.customers = data.items;
     })
-    this.customerService.getCustomerByUserName(this.Username).subscribe(data=>{
-      this.customer = data;
-    })
+   
+
   }
 
   register() {
     this.order.orderDetails = this.orderDetails;
-
+    
     this.orderService.registerOrder(this.order).subscribe(data => {
       this.orderService.getAllOrders().
       map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username )).subscribe(orders => {
@@ -75,11 +73,16 @@ export class OrderdialogComponent implements OnInit {
 
   AddOrderDetail(quantity: number) {
     
-    console.log(this.producto.id);
-    let contador;
+    console.log(this.customers)
+    this.customer = this.customers.find(x=>x.userEmail===this.email)
+    console.log(this.customer);
+    
+
     this.order.costumer = this.customer;
+    this.order.customerId = this.customer.customerId
     let _orderDetail = new OrderDetail();
     _orderDetail.product = this.producto;
+    _orderDetail.productId =this.producto.productId;
     _orderDetail.quantity = quantity;
     
 

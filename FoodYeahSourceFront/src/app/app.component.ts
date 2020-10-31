@@ -6,7 +6,7 @@ import { LoginService } from 'src/_service/login.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'FoodYeahSourceFront';
+  title = 'Future Market';
   User:string;
   constructor(public loginService: LoginService){
   }

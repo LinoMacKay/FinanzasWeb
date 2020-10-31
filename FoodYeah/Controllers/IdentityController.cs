@@ -26,11 +26,13 @@ namespace FoodYeah.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly CustomerService _customerService;
-        public IdentityController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, CustomerService customerService)
+        private readonly LOCService _locService;
+        public IdentityController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, CustomerService customerService,LOCService locService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _locService = locService;
             _customerService = customerService;
         }
 
@@ -53,7 +55,7 @@ namespace FoodYeah.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             //A base del email definimos si el usuario va a ser user o admin:
             string userRole;
-            if (model.Email.EndsWith("foodyeah.com"))
+            if (model.Email.EndsWith("futuremarket.com"))
             {
                 userRole = RoleHelper.Admin;
                 _customerService.Create(new CustomerCreateDto { CustomerName = user.FirstName, CustomerLastName=user.LastName, Customer_CategoryId = 1, CustomerAge = 0, Email = user.Email});
@@ -62,6 +64,9 @@ namespace FoodYeah.Controllers
             {
                 userRole = RoleHelper.User;
                 _customerService.Create(new CustomerCreateDto { CustomerName = user.FirstName, CustomerLastName = user.LastName, Customer_CategoryId = 2, CustomerAge = 0, Email = user.Email });
+                var target = _customerService.GetByEmail(user.Email);
+
+                _locService.CreateLOC(new CreateLOCDto { CustomerId = target.CustomerId , LineOfCredit= 1000,Fee = 0,Period=60,TCEA = 10});
             }
             var DefaultRole = await _userManager.AddToRoleAsync(user, userRole);
             if (!result.Succeeded)            

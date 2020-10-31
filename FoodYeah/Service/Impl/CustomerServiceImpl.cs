@@ -37,10 +37,12 @@ namespace FoodYeah.Service
             var entry = new Customer
             {
                 CustomerName = model.CustomerName,
+                CustomerLastName = model.CustomerLastName,
                 CustomerAge = model.CustomerAge,
                 Customer_CategoryId = model.Customer_CategoryId,
                 Customer_Category = CustomerCategory,
-                Email = model.Email,
+                Email = user.Email,
+                UserEmail = user.Email,
                 User = user,
                 CustomerId = id++
             };
@@ -104,7 +106,29 @@ namespace FoodYeah.Service
                  .Include(x => x.Orders)
                  .Include(x => x.Cards)
                  .Include(x => x.Customer_Category)
+                 .Include(x=>x.LOC)
                  .Single(x => x.CustomerId == id)
+            );
+        }
+
+        public CustomerDto GetByEmail(string Email)
+        {
+            return _mapper.Map<CustomerDto>(
+                _context.Customers.Single(x => x.UserEmail.ToLower() == Email.ToLower()));
+        }
+
+        public DataCollection<CustomerDto> GetOnlyCustomers(int page, int take)
+        {
+            return _mapper.Map<DataCollection<CustomerDto>>(
+                 _context.Customers
+                 .Where(x=>x.Customer_CategoryId == 2)
+                              .Include(x => x.Orders)
+                              .Include(x => x.Cards)
+                              .Include(x=>x.LOC)
+                              .Include(x => x.Customer_Category)
+                              .OrderByDescending(x => x.CustomerId)
+                              .AsQueryable()
+                              .Paged(page, take)
             );
         }
     }

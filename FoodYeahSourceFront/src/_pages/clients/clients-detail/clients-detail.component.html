@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="header">
+        <h1 style="font-weight:bold">Datos del cliente</h1>
+    </div>
+    <div class="progressbar">
+        <mat-progress-bar
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="value"
+        >
+    </mat-progress-bar>    </div>
+    <div class="profile">
+        <ul id="details">
+            <li><h2>Nombre del cliente: <h3>{{client.customerName}} </h3></h2></li>
+            <li><h2>Apellido del cliente: <h3> {{client.customerLastName}} </h3></h2></li>            
+          </ul>  
+          
+    </div>
+</div>

@@ -1,0 +1,52 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { Customer } from 'src/_model/customer';
+import { CustomerService } from 'src/_service/customer.service';
+
+@Component({
+  selector: 'app-clients',
+  templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.css']
+})
+export class ClientsComponent implements OnInit {
+
+
+  dataSource: MatTableDataSource<Customer>;
+  displayedColumns: string[] = ['nombre', 'description', 'loc','fee','acciones'];
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+
+  constructor(private customerService:CustomerService,private router:Router) { }
+
+  ngOnInit(): void {
+    this.customerService.getOnlyCustomer().subscribe(data =>{
+      this.dataSource = new MatTableDataSource<Customer>(data.items);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+
+    
+  }
+  
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  delete(client:Customer){
+    this.customerService.deleteCustomer(client.customerId).subscribe(data => {
+      this.customerService.getOnlyCustomer().subscribe(products => {
+        this.customerService.message.next("Se elimino");
+      });
+    });
+  }
+  EditClient(client:Customer){
+    this.router.navigate(['/clients-details', client.customerId]);  }
+
+
+}

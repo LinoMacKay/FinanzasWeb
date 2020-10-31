@@ -15,7 +15,5 @@ url:string= `${environment.HOST_URL}/identity`;
     return this.http.post(this.url+'/register',customer);
   }
 
-  assignRole(customer: Customer){
-    return this.http.post(`${this.url}/${customer.id}/role=/${customer.customerCategory.id}`, customer);
-  }
+ 
 }

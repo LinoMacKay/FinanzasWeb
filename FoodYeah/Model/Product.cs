@@ -18,6 +18,5 @@ namespace FoodYeah.Model
         public Enums.DaySold SellDay { get; set; }
         public int Stock { get; set; }
         public string ImageUrl { get; set; }
-        public List<string> Ingredients { get; set; }
     }
 }

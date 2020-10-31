@@ -46,9 +46,9 @@ mat-card {
     flex-basis:30%
   }
 
-  .cards{
-    flex-basis: 30%;
-
+  
+  .clients{
+    flex-basis:30%;
   }
 
   #talkbubble {
@@ -73,8 +73,6 @@ mat-card {
 
   }
 
-
-
   .container{
     display: flex;
     flex-direction: row;
@@ -88,6 +86,6 @@ mat-card {
   }
   
   mat-card img {
-       width: 150px;
-        max-height:80px;
+    width: 150px;
+    max-height:80px;
   }

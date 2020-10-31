@@ -56,7 +56,7 @@ export class CarddialogComponent implements OnInit {
         cardCvi: new FormControl(this.data.cardCvi),
         cardExpireDate: new FormControl(this.data.cardExpireDate),
         cardMoney: new FormControl(this.data.cardMoney),
-        customer: new FormControl(this.data.customer.id)
+        customer: new FormControl(this.data.customer.customerId)
       });
 
     }

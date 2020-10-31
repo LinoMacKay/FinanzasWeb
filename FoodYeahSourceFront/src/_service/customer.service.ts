@@ -33,4 +33,34 @@ export class CustomerService {
     
     }
 
+    getOnlyCustomer(){
+      let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
+      return this.http.get<Customer[]>(`${this.url}/onlycustomers`, {
+        headers: new HttpHeaders().set('Authorization',
+          `bearer ${access_token}`).set('Content-Type', 'application/json')
+      })
+      
+    }
+    deleteCustomer(clientId: number) {
+      let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
+      return this.http.delete(`${this.url}/${clientId}`, {
+        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+    }
+
+
+    getById(clientId: number) {
+      let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
+      return this.http.get<Customer>(`${this.url}/${clientId}`, {
+        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+    }
+
+  
+
+
+
+
+
+
 }

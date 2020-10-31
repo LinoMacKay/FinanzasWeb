@@ -12,7 +12,7 @@ namespace FoodYeah.Persistence.Config
     {
         public LOCConfig(EntityTypeBuilder<LOC>entityBuilder)
         {
-            
+            entityBuilder.Property(x => x.LOCId).HasIdentityOptions();
         }
     }
 }

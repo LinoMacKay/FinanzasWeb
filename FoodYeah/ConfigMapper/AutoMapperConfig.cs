@@ -33,6 +33,10 @@ namespace FoodYeah.ConfigMapper
             CreateMap<Customer_Category, Customer_CategoryDto>();
             CreateMap<DataCollection<Customer_Category>, DataCollection<Customer_CategoryDto>>();
 
+            CreateMap<LOC, LOCDto>();
+            CreateMap<DataCollection<LOC>, DataCollection<LOCDto>>();
+
+
             //Simple Dtos
             CreateMap<Customer, CustomerSimpleDto>();
             CreateMap<DataCollection<Customer>, DataCollection<CustomerSimpleDto>>();

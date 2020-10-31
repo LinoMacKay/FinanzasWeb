@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit {
     this.User= this.loginService.getUser();
     this.UserName = this.loginService.getUserName();
     
+  console.log(this.User)
+  console.log(this.UserName)
+
   }
 
 }

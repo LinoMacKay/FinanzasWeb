@@ -1,10 +1,14 @@
 import { CustomerCategory } from './customerCategory';
+import { LOC } from './LOC';
 
 export class Customer {
-    id:number;
+    customerId:number;
     username:string;
     password:string;
     customerName:string;
+    email:string;
+    userEmail:string;
     customerAge:number;
+    loc:LOC;
     customerCategory: CustomerCategory;
 }

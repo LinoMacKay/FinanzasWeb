@@ -10,6 +10,8 @@ import { ProductcategoryComponent } from 'src/_pages/productcategory/productcate
 import { CardComponent } from 'src/_pages/cards/card.component';
 import { OrderuserComponent } from 'src/_pages/order/orderuser/orderuser.component';
 import { OrderuserbuyComponent } from 'src/_pages/order/orderuserbuy/orderuserbuy.component';
+import { ClientsComponent } from 'src/_pages/clients/clients.component';
+import { ClientsDetailComponent } from 'src/_pages/clients/clients-detail/clients-detail.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,10 @@ const routes: Routes = [
 { path: '', redirectTo: 'login', pathMatch: 'full' },
 {path:'orderuserbuy/:id',component:OrderuserbuyComponent},
 {path:'product_categories',component:ProductcategoryComponent},
-{path:'orderuser/:id',component:OrderuserComponent}
+{path:'orderuser/:id',component:OrderuserComponent},
+{path:'clients',component:ClientsComponent},
+{path:'clients-details/:id',component:ClientsDetailComponent}
+
 ];
 
 @NgModule({

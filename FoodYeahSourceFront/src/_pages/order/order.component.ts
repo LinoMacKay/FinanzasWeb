@@ -59,14 +59,15 @@ export class OrderComponent {
     this.orderService.getAllOrders().
     map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username ))
     .subscribe(data => {
-      this.dataSource = new MatTableDataSource<Order>(data);
+      this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(data.items)
     });}
     else {
       this.orderService.getAllOrders()
     .subscribe(data => {
-      this.dataSource = new MatTableDataSource<Order>(data);
+      this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
@@ -75,7 +76,7 @@ export class OrderComponent {
   
     this.Username = this.loginService.getUserName();
     this.orderService.ordersChange.subscribe(data => {
-      this.dataSource = new MatTableDataSource<Order>(data);
+      this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

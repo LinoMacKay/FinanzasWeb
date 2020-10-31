@@ -1537,7 +1537,6 @@ D:\Cursos\Finanzas\FoodYeah\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sq
 D:\Cursos\Finanzas\FoodYeah\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Cursos\Finanzas\FoodYeah\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Cursos\Finanzas\FoodYeah\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csprojAssemblyReference.cache
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csproj.CoreCompileInputs.cache
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.MvcApplicationPartsAssemblyInfo.cs
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.MvcApplicationPartsAssemblyInfo.cache
@@ -1550,3 +1549,4 @@ D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\staticwebassets\FoodYeah.Sta
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.dll
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.pdb
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.genruntimeconfig.cache
+D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csprojAssemblyReference.cache

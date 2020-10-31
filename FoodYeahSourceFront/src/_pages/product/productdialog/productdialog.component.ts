@@ -39,7 +39,6 @@ export class ProductdialogComponent implements OnInit {
     this.product.category = this.data.category;
     this.product.imageUrl = this.data.imageUrl;
     this.product.productId = this.data.productId;
-    this.product.ingredients = this.ingredients;
 
 
     this.productcategoryService.getAllProductsCategories().subscribe(
@@ -54,7 +53,6 @@ export class ProductdialogComponent implements OnInit {
     }
 
     if (this.created == true) {
-      this.ingredients = this.data.ingredients;
       this.form = this.fb.group({
         productName: new FormControl(this.data.productName),
         productPrice: new FormControl(this.data.productPrice),
@@ -89,7 +87,6 @@ export class ProductdialogComponent implements OnInit {
     this.product.sellDay = this.form.value['sellDay'];
     this.product.product_CategoryId = productCategory.product_CategoryId;
     this.product.imageUrl = this.form.value['imageUrl'];
-    this.product.ingredients = this.ingredients;
     if (this.created == false) {
       this.product.productId = null;
       this.productService.registerProduct(this.product).subscribe(data => {
@@ -110,12 +107,7 @@ export class ProductdialogComponent implements OnInit {
     console.log(this.product)
     this.dialogRef.close();
   }
-  AddIngredients(newIngredient: string) {
-    this.ingredients.push(newIngredient);
-  }
-  DeleteLastIngredient() {
-    this.ingredients.pop();
-  }
+
   
   close() {
     this.dialogRef.close();

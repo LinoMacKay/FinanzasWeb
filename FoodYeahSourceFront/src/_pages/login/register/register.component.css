@@ -8,7 +8,10 @@
     max-height: 500px;
   }
   
-
+.register{
+  display: grid;
+  place-items: center;
+}
   
 * {
   box-sizing: border-box;
@@ -29,10 +32,7 @@ img{
   left: 50px;
 }
 .custom-form {
-  display:grid;
-  place-items: center;
-  min-width: 300px;
-  max-width: 400px;
+  width:400px;
   background: rgba(255, 255, 255, 0.15);
   padding: 2rem 3rem;
   border-radius: 2.5rem;

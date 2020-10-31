@@ -7,7 +7,6 @@ export class Product {
    sellDay:number;
    stock:number;
    imageUrl:string;
-   ingredients:Array<string>;
    category:ProductCategory;
    product_CategoryId:number;
    state:string;

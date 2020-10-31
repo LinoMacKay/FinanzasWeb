@@ -39,7 +39,15 @@ export class LoginService {
     const decodedToken = helper.decodeToken(tk);
     let userName = decodedToken.unique_name + " " + decodedToken.family_name;
     return userName;
-}
+  }
+
+  getEmail(){
+  const helper = new JwtHelperService();  
+  let tk = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME));
+  const decodedToken = helper.decodeToken(tk);
+  let email = decodedToken.email;
+  return email;
+  }
 
   signOut() {
     sessionStorage.removeItem("access_token")

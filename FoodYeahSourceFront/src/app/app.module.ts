@@ -28,12 +28,17 @@ import { OrderbuydialogComponent } from 'src/_pages/order/orderbuydialog/orderbu
 import { CardComponent } from 'src/_pages/cards/card.component';
 import { OrderuserComponent } from 'src/_pages/order/orderuser/orderuser.component';
 import { OrderuserbuyComponent } from 'src/_pages/order/orderuserbuy/orderuserbuy.component';
+import { ClientsComponent } from 'src/_pages/clients/clients.component';
+import { ClientsDetailComponent } from 'src/_pages/clients/clients-detail/clients-detail.component';
 
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    ClientsComponent,
+    ClientsDetailComponent,
     RegisterComponent,
     HomeComponent,
     ProductComponent,
@@ -58,6 +63,7 @@ import { OrderuserbuyComponent } from 'src/_pages/order/orderuserbuy/orderuserbu
     ReactiveFormsModule,
     MatCardModule,
     MatTableModule,
+    MatProgressBarModule,
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,

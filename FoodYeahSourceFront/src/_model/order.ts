@@ -6,8 +6,9 @@ export class Order {
     id:number;
     orderDetails?: OrderDetail[] | MatTableDataSource<OrderDetail>;
     costumer:Customer;
-    inittime:string;
-    endtime:string;
+    customerId:number;
+    initTime:string;
+    endTime:string;
     totalPrice:number;
-    state:string;
+    status:string;
 }

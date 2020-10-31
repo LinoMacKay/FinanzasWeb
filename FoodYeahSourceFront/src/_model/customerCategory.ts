@@ -1,5 +1,5 @@
 export class CustomerCategory {
-    id:number;
+    customer_CategoryId:number;
     customerCategoryName: string;
     customerCategoryDescription: string;
 }

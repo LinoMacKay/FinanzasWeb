@@ -12,6 +12,7 @@ namespace FoodYeah.Model
         public List<Card> Cards { get; set; } 
         public List<Order> Orders {get; set;}
         public string Email { get; set; }
+        public string UserEmail { get; set; }
         public LOC LOC { get; set; }
         public ApplicationUser User { get; set; }
         [Required]

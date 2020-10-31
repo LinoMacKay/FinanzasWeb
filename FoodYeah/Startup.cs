@@ -73,6 +73,7 @@ namespace FoodYeah
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
             services.AddTransient<CustomerService, CustomerServiceImpl>();
+            services.AddTransient<LOCService, LOCServiceImpl>();
             services.AddTransient<ProductService, ProductServiceImpl>();
             services.AddTransient<OrderService, OrderServiceImpl>();
             services.AddTransient<CardService, CardServiceImpl>();            
