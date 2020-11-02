@@ -193,12 +193,12 @@ namespace FoodYeah.Service.Impl
             decimal s = capital * (1 + (interestRate * frecuency));
             return s;
         }
-        //public decimal TIN(decimal capital, int frecuency, decimal interestRate, int numberQuotes, int rateType){
-        //    // Tasa de interés nominal : 2
-        //    decimal sub = (1 + (interestRate/(rateType/frecuency)));
-        //    decimal s = capital * (Math.Pow(sub, numberQuotes));
-        //    return s;
-        //}
+        public decimal TIN(decimal capital, int frecuency, decimal interestRate, int numberQuotes, int rateType){
+           // Tasa de interés nominal : 2
+           decimal sub = (1 + (interestRate/(rateType/frecuency)));
+           decimal s = capital * (Math.Pow(sub, numberQuotes));
+            return s;
+        }
         public void TEP(){
             // Tasa efectiva de período : 3
             // Not implemented
@@ -211,12 +211,6 @@ namespace FoodYeah.Service.Impl
 
         public void Pay(int CustomerId)
         {
-
-
-
-
-
-
 
         }
         /*
