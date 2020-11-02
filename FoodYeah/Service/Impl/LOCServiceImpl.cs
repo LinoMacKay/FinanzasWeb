@@ -27,9 +27,7 @@ namespace FoodYeah.Service.Impl
             var entry = new LOC
             {
                 TCEA = model.TCEA,
-                Fee = model.Fee,
-                LineOfCredit = model.LineOfCredit,
-                Period = model.Period,
+                TotalLineOfCredit = model.TotalLineOfCredit,
                 Customer = _context.Customers.Single(x=>x.CustomerId == model.CustomerId),
                 CustomerId = model.CustomerId
             };
@@ -67,9 +65,8 @@ namespace FoodYeah.Service.Impl
 
 
             var target = _context.LOCs.Single(x => x.LOCId == id);
-            target.Period = model.Period;
             target.TCEA = model.TCEA;
-            target.LineOfCredit = model.LineOfCredit;
+            target.TotalLineOfCredit = model.TotalLineOfCredit;
             _context.SaveChanges();
         }
     }

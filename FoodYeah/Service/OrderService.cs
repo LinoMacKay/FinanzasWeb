@@ -1,6 +1,7 @@
 ﻿using FoodYeah.Commons;
 using FoodYeah.Dto;
 using FoodYeah.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodYeah.Service
 {
@@ -18,6 +19,7 @@ namespace FoodYeah.Service
         void DecreaseStock(int id);
         bool DecreaseCostumerMoney(int cardId, int orderId);
         //
+        void Pay(int CustomerId);
         void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1, int paymentType = 1, decimal interestRate = 0);
     }
 }

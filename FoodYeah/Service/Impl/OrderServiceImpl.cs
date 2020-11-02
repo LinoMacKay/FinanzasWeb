@@ -193,51 +193,71 @@ namespace FoodYeah.Service.Impl
             decimal s = capital * (1 + (interestRate * frecuency));
             return s;
         }
-        public decimal TIN(decimal capital, int frecuency, decimal interestRate, int numberQuotes, int rateType){
-            // Tasa de interés nominal : 2
-            decimal sub = (1 + (interestRate/(rateType/frecuency)));
-            decimal s = capital * (Math.Pow(sub, numberQuotes));
-            return s;
-        }
+        //public decimal TIN(decimal capital, int frecuency, decimal interestRate, int numberQuotes, int rateType){
+        //    // Tasa de interés nominal : 2
+        //    decimal sub = (1 + (interestRate/(rateType/frecuency)));
+        //    decimal s = capital * (Math.Pow(sub, numberQuotes));
+        //    return s;
+        //}
         public void TEP(){
             // Tasa efectiva de período : 3
             // Not implemented
         }
-        /*
-        capital = Order.TotalPrice (que es el precio sin los intereses)
-        Order.Frecuency (frecuencia de las cuotas que pagaras, por defecto esta en 1)
-                1: Diario | 15: Quincenal | 30: Mensual (Despues lo hacemos enum si quieres)
-        Order.InterestRate (tasa de interés, expresada en un decimal de 0 a 1, por defecto en 0)
-                Un InterestRate de 0.5 indica 50%
-        Order.NumberQuotes (literalmente es eso)
-        Order.PaymentType (en verdad es el tipo de tasa - sin especificacion de capitalizacion)
-                1: Tasa de Interes Simple | 2: Tasa de Interes Nominal
-        NOTA ADICIONAL: Además, para el caso de la tasa nominal, como necesita capitalizaciones
-        puse una variable que no entrara en la order y solo servira para el calculo, que es el
-        rateType. Ejemplo:
-        TASA NOMINAL ANUAL CON CAPITALIZACIONES MENSUALES, A 4 CUOTAS
-        rateType = 360 -> representa el ANUAL
-        frecuency = 30 -> capitalizacion MENSUAL
-        NumberQuotes = 4
-        Es por eso que arriba encontraras la formula de Tasa Interes Nominal (TIN) con esas cosas
-        Posiblemente esto se vaya a modificar bastante pero igual te lo dejo por si lo lees
 
-        */
-        public void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1,int paymentType = 1, int rateType = 1, decimal interestRate = 0){
-            var order = _context.Orders.Single(x => x.OrderId == id);
-            order.NumberQuotes = numberQuotes;
-            order.Frecuency = frecuency;
-            order.PaymentType = paymentType;
-            order.InterestRate = interestRate;
-            switch (order.PaymentType)
-            {
-                case 1: order.LastTotal = TIS(order.TotalPrice, order.Frecuency, order.InterestRate); break;
-                case 2: order.LastTotal = TIN(order.TotalPrice, order.Frecuency, order.InterestRate, order.NumberQuotes, rateType); break;
-            }
-            decimal q = ((order.LastTotal - order.TotalPrice)/order.NumberQuotes)
-            for(int i = 0; i < order.NumberQuotes; i++){
-                order.Quotes.Add(q);
-            }
+        public void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1, int paymentType = 1, decimal interestRate = 0)
+        {
+            throw new NotImplementedException();
         }
+
+        public void Pay(int CustomerId)
+        {
+
+
+
+
+
+
+
+        }
+        /*
+capital = Order.TotalPrice (que es el precio sin los intereses)
+Order.Frecuency (frecuencia de las cuotas que pagaras, por defecto esta en 1)
+1: Diario | 15: Quincenal | 30: Mensual (Despues lo hacemos enum si quieres)
+Order.InterestRate (tasa de interés, expresada en un decimal de 0 a 1, por defecto en 0)
+Un InterestRate de 0.5 indica 50%
+Order.NumberQuotes (literalmente es eso)
+Order.PaymentType (en verdad es el tipo de tasa - sin especificacion de capitalizacion)
+1: Tasa de Interes Simple | 2: Tasa de Interes Nominal
+NOTA ADICIONAL: Además, para el caso de la tasa nominal, como necesita capitalizaciones
+puse una variable que no entrara en la order y solo servira para el calculo, que es el
+rateType. Ejemplo:
+TASA NOMINAL ANUAL CON CAPITALIZACIONES MENSUALES, A 4 CUOTAS
+rateType = 360 -> representa el ANUAL
+frecuency = 30 -> capitalizacion MENSUAL
+NumberQuotes = 4
+Es por eso que arriba encontraras la formula de Tasa Interes Nominal (TIN) con esas cosas
+Posiblemente esto se vaya a modificar bastante pero igual te lo dejo por si lo lees
+
+*/
+        //public void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1,int paymentType = 1, int rateType = 1, decimal interestRate = 0){
+        //    var order = _context.Orders.Single(x => x.OrderId == id);
+        //    order.NumberQuotes = numberQuotes;
+        //    order.Frecuency = frecuency;
+        //    order.PaymentType = paymentType;
+        //    order.InterestRate = interestRate;
+        //    switch (order.PaymentType)
+        //    {
+        //        case 1: order.LastTotal = TIS(order.TotalPrice, order.Frecuency, order.InterestRate); break;
+        //        case 2: order.LastTotal = TIN(order.TotalPrice, order.Frecuency, order.InterestRate, order.NumberQuotes, rateType); break;
+        //    }
+        //    decimal q = ((order.LastTotal - order.TotalPrice) / order.NumberQuotes);
+        //    for(int i = 0; i < order.NumberQuotes; i++){
+        //        order.Quotes.Add(q);
+        //    }
+        //}
+
+
+
+
     }
 }

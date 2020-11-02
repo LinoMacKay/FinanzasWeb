@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using FoodYeah.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FoodYeah.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201102011748_quotedetails")]
+    partial class quotedetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,15 +158,15 @@ namespace FoodYeah.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a0e57f0-b07b-40d2-a884-3d9a40a1c10f",
-                            ConcurrencyStamp = "db96f2d7-e8bd-4a02-acb2-8e0d61634a05",
+                            Id = "2259292a-043b-4f29-b940-5abc314d192c",
+                            ConcurrencyStamp = "2bc71c68-8a8e-454d-b1b4-be2caa062837",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8469d882-ddd8-4edf-8bee-3e59acc7d666",
-                            ConcurrencyStamp = "34e0307b-07f8-4cb4-97a7-b8bfb7680a64",
+                            Id = "7c1ee389-5cc2-49ce-830f-99fbcd1df486",
+                            ConcurrencyStamp = "d480bf7f-1191-4275-91a5-b8bb3739ae0c",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -404,7 +406,7 @@ namespace FoodYeah.Migrations
                     b.ToTable("Product_Categories");
                 });
 
-            modelBuilder.Entity("FoodYeah.Model.QuoteDetail", b =>
+            modelBuilder.Entity("FoodYeah.Model.QuoteDetails", b =>
                 {
                     b.Property<int>("QuoteDetailsId")
                         .ValueGeneratedOnAdd()
@@ -437,29 +439,6 @@ namespace FoodYeah.Migrations
                     b.HasIndex("LocId");
 
                     b.ToTable("QuoteDetails");
-                });
-
-            modelBuilder.Entity("FoodYeah.Model.Transaction", b =>
-                {
-                    b.Property<int>("TransactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.HasKey("TransactionId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -630,20 +609,11 @@ namespace FoodYeah.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodYeah.Model.QuoteDetail", b =>
+            modelBuilder.Entity("FoodYeah.Model.QuoteDetails", b =>
                 {
                     b.HasOne("FoodYeah.Model.LOC", "Loc")
                         .WithMany("QuoteDetails")
                         .HasForeignKey("LocId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FoodYeah.Model.Transaction", b =>
-                {
-                    b.HasOne("FoodYeah.Model.Customer", "Customer")
-                        .WithMany("Transactions")
-                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

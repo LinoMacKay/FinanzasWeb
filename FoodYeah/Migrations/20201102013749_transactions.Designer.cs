@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using FoodYeah.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FoodYeah.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201102013749_transactions")]
+    partial class transactions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,15 +158,15 @@ namespace FoodYeah.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a0e57f0-b07b-40d2-a884-3d9a40a1c10f",
-                            ConcurrencyStamp = "db96f2d7-e8bd-4a02-acb2-8e0d61634a05",
+                            Id = "544626b1-d21f-41bc-b107-f7cc1519d7c0",
+                            ConcurrencyStamp = "571dcd77-0d83-4c8f-9cca-0a1d2d3ed65b",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8469d882-ddd8-4edf-8bee-3e59acc7d666",
-                            ConcurrencyStamp = "34e0307b-07f8-4cb4-97a7-b8bfb7680a64",
+                            Id = "a65aacca-2dd6-4a29-995a-0ba62e4f8687",
+                            ConcurrencyStamp = "d6de3143-c7ec-442f-8d1d-fde5af77199e",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -446,9 +448,6 @@ namespace FoodYeah.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -456,8 +455,6 @@ namespace FoodYeah.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("TransactionId");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Transactions");
                 });
@@ -635,15 +632,6 @@ namespace FoodYeah.Migrations
                     b.HasOne("FoodYeah.Model.LOC", "Loc")
                         .WithMany("QuoteDetails")
                         .HasForeignKey("LocId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FoodYeah.Model.Transaction", b =>
-                {
-                    b.HasOne("FoodYeah.Model.Customer", "Customer")
-                        .WithMany("Transactions")
-                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

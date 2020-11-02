@@ -19,5 +19,6 @@ namespace FoodYeah.Model
         public string CustomerName { get; set; }
         public string CustomerLastName { get; set; }
         public byte CustomerAge { get; set; }
+        public List<Transaction> Transactions { get; set; }
     }
 }

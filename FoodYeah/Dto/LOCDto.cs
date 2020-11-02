@@ -8,30 +8,23 @@ namespace FoodYeah.Dto
     public class LOCDto
     {
         public float TCEA { get; set; }
-        public int Fee { get; set; }
-        public int Period { get; set; }
         public int LineOfCredit { get; set; }
         public int AvalibleLineOfCredit { get; set; }
 
-        public DateTime DateOfIssue { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        
     }
     public class CreateLOCDto
     {
         public int CustomerId { get; set; }
         public float TCEA { get; set; }
-        public int Fee { get; set; }
-        public int Period { get; set; }
-        public int LineOfCredit { get; set; }
+        public int TotalLineOfCredit { get; set; }
         
     }
     public class UpdateLOCDto
     {
         public float TCEA { get; set; }
-        public int Period { get; set; }
-        public int LineOfCredit { get; set; }
-        public DateTime DateOfIssue { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public int TotalLineOfCredit { get; set; }
+       
     }
     public class DeleteLOCDto
     {

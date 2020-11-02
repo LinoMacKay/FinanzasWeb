@@ -14,11 +14,9 @@ namespace FoodYeah.Model
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
         public float TCEA { get; set; }
-        public int Fee { get; set; }
+        public List<QuoteDetail> QuoteDetails { get; set; }
         public int AvalibleLineOfCredit { get; set; }
-        public int Period { get; set; }
-        public int LineOfCredit { get; set; }
-        public DateTime DateOfIssue { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public int TotalLineOfCredit { get; set; }
+
     }
 }

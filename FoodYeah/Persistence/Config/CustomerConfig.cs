@@ -16,6 +16,7 @@ namespace FoodYeah.Persistence.Config
             .WithMany(x => x.Customers)
             .HasForeignKey(x => x.Customer_CategoryId);
             entityBuilder.HasOne(x => x.User).WithOne(x => x.Customer).HasForeignKey<ApplicationUser>(x => x.Email);
+            entityBuilder.HasMany(x => x.Transactions).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
         }
     }
 }        
