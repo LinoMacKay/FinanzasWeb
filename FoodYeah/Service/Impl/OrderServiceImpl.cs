@@ -188,6 +188,7 @@ namespace FoodYeah.Service.Impl
             return false;
         }
         //
+        /*
         public decimal TIS(decimal capital, int frecuency, decimal interestRate){
             // Tasa de interés simple : 1
             decimal s = capital * (1 + (interestRate * frecuency));
@@ -213,6 +214,7 @@ namespace FoodYeah.Service.Impl
         {
 
         }
+        */
         /*
 capital = Order.TotalPrice (que es el precio sin los intereses)
 Order.Frecuency (frecuencia de las cuotas que pagaras, por defecto esta en 1)

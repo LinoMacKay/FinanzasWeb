@@ -19,7 +19,7 @@ namespace FoodYeah.Service
         void DecreaseStock(int id);
         bool DecreaseCostumerMoney(int cardId, int orderId);
         //
-        void Pay(int CustomerId);
-        void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1, int paymentType = 1, decimal interestRate = 0);
+        //void Pay(int CustomerId);
+        //void SetPaymentConditions(int id, int numberQuotes = 1, int frecuency = 1, int paymentType = 1, decimal interestRate = 0);
     }
 }

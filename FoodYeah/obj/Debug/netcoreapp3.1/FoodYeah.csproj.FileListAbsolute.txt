@@ -1550,3 +1550,11 @@ D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.dll
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.pdb
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.genruntimeconfig.cache
 D:\Cursos\Finanzas\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csprojAssemblyReference.cache
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csprojAssemblyReference.cache
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.AssemblyInfoInputs.cache
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.AssemblyInfo.cs
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.csproj.CoreCompileInputs.cache
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.MvcApplicationPartsAssemblyInfo.cs
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.MvcApplicationPartsAssemblyInfo.cache
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.dll
+D:\Repositorios\GitHub\FinanzasWeb\FoodYeah\obj\Debug\netcoreapp3.1\FoodYeah.pdb

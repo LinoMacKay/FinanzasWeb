@@ -36,6 +36,8 @@ namespace FoodYeah.ConfigMapper
             CreateMap<LOC, LOCDto>();
             CreateMap<DataCollection<LOC>, DataCollection<LOCDto>>();
 
+            CreateMap<Transaction, TransactionDto>();
+            CreateMap<DataCollection<Transaction>, DataCollection<TransactionDto>>();
 
             //Simple Dtos
             CreateMap<Customer, CustomerSimpleDto>();

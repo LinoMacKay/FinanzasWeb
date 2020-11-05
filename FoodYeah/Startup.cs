@@ -74,6 +74,8 @@ namespace FoodYeah
 );
             services.AddTransient<CustomerService, CustomerServiceImpl>();
             services.AddTransient<LOCService, LOCServiceImpl>();
+            services.AddTransient<TransactionService, TransactionServiceImpl>();
+            services.AddTransient<QuoteDetailService, QuoteDetailServiceImpl>();
             services.AddTransient<ProductService, ProductServiceImpl>();
             services.AddTransient<OrderService, OrderServiceImpl>();
             services.AddTransient<CardService, CardServiceImpl>();            

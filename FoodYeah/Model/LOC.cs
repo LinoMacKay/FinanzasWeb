@@ -13,10 +13,10 @@ namespace FoodYeah.Model
         public int LOCId { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public float TCEA { get; set; }
+        public decimal TCEA { get; set; }
         public List<QuoteDetail> QuoteDetails { get; set; }
-        public int AvalibleLineOfCredit { get; set; }
-        public int TotalLineOfCredit { get; set; }
+        public decimal AvalibleLineOfCredit { get; set; }
+        public decimal TotalLineOfCredit { get; set; }
 
     }
 }

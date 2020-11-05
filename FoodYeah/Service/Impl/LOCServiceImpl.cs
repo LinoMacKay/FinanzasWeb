@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 
 namespace FoodYeah.Service.Impl
 {
@@ -16,18 +14,22 @@ namespace FoodYeah.Service.Impl
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private static int id;
 
         public LOCServiceImpl(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            id = 0;
         }
         public LOCDto CreateLOC(CreateLOCDto model)
         {
             var entry = new LOC
             {
+                LOCId = id++,
                 TCEA = model.TCEA,
                 TotalLineOfCredit = model.TotalLineOfCredit,
+                AvalibleLineOfCredit = model.TotalLineOfCredit,
                 Customer = _context.Customers.Single(x=>x.CustomerId == model.CustomerId),
                 CustomerId = model.CustomerId
             };
