@@ -12,13 +12,13 @@ namespace FoodYeah.Service
         OrderDto GetById(int id);
         OrderSimpleDto GetByIdSimple(int id);
         OrderSimpleDto UpdateStatus(int id, string status);
-        OrderDto Create(OrderCreateDto model);
+        ActionResult Create(OrderCreateDto model);
 
         DataCollection<OrderDto> GetByUserEmail(string email);
         string GetDeliveredOrder(int id);
         void SetEndTime(int id);
         string GetAverageTime();
-        void DecreaseStock(int id);
+        void DecreaseStock(Order order);
         bool DecreaseCostumerMoney(int cardId, int orderId);
         //
         //void Pay(int CustomerId);

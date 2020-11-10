@@ -11,7 +11,9 @@ mat-card {
   mat-form-field {
     display:block;
   }
-
+  mat-card:hover {
+    background-color: #F1F1F1;
+  }
   mat-card img{
     object-fit: cover; /*this makes the image in src fit to the size specified below*/
     height: 200px;

@@ -44,6 +44,23 @@
     </mat-card-actions>
 </mat-card>
 
+<mat-card class="profile" *ngIf = "User == 'USER'"  >
+  <mat-card-header>
+    <mat-card-title>Perfil</mat-card-title>
+    <mat-card-subtitle> Revise su perfil </mat-card-subtitle>
+  </mat-card-header>
+  <img id="imagencarrito" mat-card-image src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" alt="profile">
+  <mat-card-content>
+    <p>
+      Obtenga informacion sobre su perfil
+    </p>
+  </mat-card-content>
+  <br>
+  <mat-card-actions>
+    <button mat-button color="warn" routerLink="/profile">Ingresar</button>
+  </mat-card-actions>
+</mat-card>
+
 <mat-card class="categories" *ngIf="User != 'USER'">
   <mat-card-header>
     <mat-card-title>Categoria de productos</mat-card-title>

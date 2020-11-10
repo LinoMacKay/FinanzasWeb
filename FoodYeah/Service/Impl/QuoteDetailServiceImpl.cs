@@ -25,16 +25,14 @@ namespace FoodYeah.Service.Impl
             _context = context;
             _mapper = mapper;
             _transactionService = transactionService;
-            id = 0;
         }
 
-        public QuoteDetailsDto Create(CreateQuoteDetailsDto model, int orderId)
+        public QuoteDetailsDto Create(CreateQuoteDetailsDto model,decimal totalPrice)
         {
-            var order = _context.Orders.Single(x => x.OrderId == orderId);
             
             decimal tasa = _context.LOCs.Single(x => x.LOCId == model.LocId).TEA;
             decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasa)), model.NumberQuotes));
-            decimal quote = order.TotalPrice * ((tasa * e)/(e - 1));
+            decimal quote = totalPrice * ((tasa * e)/(e - 1));
             List<decimal> cuotas = new List<decimal>();
             for(int i = 0; i < model.NumberQuotes; i++)
             {
@@ -43,11 +41,11 @@ namespace FoodYeah.Service.Impl
 
             var entry = new QuoteDetail
             {
-                QuoteDetailsId = id++,
                 NumberQuotes = model.NumberQuotes,
                 Frecuency = model.Frecuency,
                 PaymentType = model.PaymentType,
                 InterestRate = tasa,
+                LocId = model.LocId,
                 Quotes = cuotas
             };
             

@@ -79,7 +79,7 @@ namespace FoodYeah.Controllers
             if (_OrderService.DecreaseCostumerMoney(cardId, orderId))
             {
                 _OrderService.SetEndTime(orderId);
-                _OrderService.DecreaseStock(orderId);
+               // _OrderService.DecreaseStock(orderId);
                 var result = _OrderService.UpdateStatus(orderId, "DELIVERED");
                 string message;
                 message = _OrderService.GetDeliveredOrder(orderId);

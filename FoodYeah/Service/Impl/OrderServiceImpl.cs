@@ -9,6 +9,7 @@ using FoodYeah.Dto;
 using FoodYeah.Model;
 using FoodYeah.Persistence;
 using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodYeah.Service.Impl
 {
@@ -16,19 +17,19 @@ namespace FoodYeah.Service.Impl
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private static int id;
+        private readonly QuoteDetailService _quoteDetailService;
 
         public OrderServiceImpl(
             ApplicationDbContext context,
-            IMapper mapper
+            IMapper mapper,QuoteDetailService quoteDetailService
         )
         {
-            id = 0;
+            _quoteDetailService = quoteDetailService;
             _context = context;
             _mapper = mapper;
         }
 
-        public OrderDto Create(OrderCreateDto model)
+        public ActionResult Create(OrderCreateDto model)
         {
             var entry = _mapper.Map<Order>(model);
 
@@ -36,12 +37,17 @@ namespace FoodYeah.Service.Impl
 
             PrepareHeader(entry);
 
+            PrepareLoc(entry,model.QuoteDetails);
+
+
             _context.Orders.Add(entry);
             _context.SaveChanges();
 
 
-            return _mapper.Map<OrderDto>(GetById(entry.OrderId)
-            );
+            return new JsonResult(new
+            {
+                Message = "Orden Creada"
+            });
         }
 
         public DataCollection<OrderDto> GetAll(int page, int take)
@@ -65,6 +71,20 @@ namespace FoodYeah.Service.Impl
                     .AsQueryable()
                     .Paged(page, take)
            );
+        }
+
+
+        public void PrepareLoc(Order order,CreateQuoteDetailsDto entry)
+        {
+            var customer = _context.Customers.Single(x => x.CustomerId == order.CustomerId);
+            var loc = _context.LOCs.Single(x => x.CustomerId == customer.CustomerId);
+            if (loc.AvalibleLineOfCredit > order.TotalPrice)
+            {
+                loc.AvalibleLineOfCredit -= order.TotalPrice;
+                _quoteDetailService.Create(new CreateQuoteDetailsDto { Frecuency = entry.Frecuency, LocId = loc.LOCId, NumberQuotes = entry.NumberQuotes},order.TotalPrice);
+                DecreaseStock(order);
+            }
+            
         }
 
         public OrderDto GetById(int id)
@@ -99,7 +119,6 @@ namespace FoodYeah.Service.Impl
 
         private void PrepareHeader(Order order)
         {
-            order.OrderId = id++;
             order.Date = DateTime.Now.ToString("yyyy-MM-dd");
             order.TotalPrice = order.OrderDetails.Sum(x => x.TotalPrice);
             order.InitTime = DateTime.Now.ToString("hh:mm:ss tt");
@@ -116,15 +135,13 @@ namespace FoodYeah.Service.Impl
             _context.SaveChanges();
         }
 
-        public void DecreaseStock(int id)
+        public void DecreaseStock(Order order)
         {
-            var order = _context.Orders
-                .Include(x => x.OrderDetails)
-                .ThenInclude(x => x.Product)
-                .Single(x => x.OrderId == id);
+          
             foreach (var item in order.OrderDetails)
             {
-                item.Product.Stock -= item.Quantity;
+                var product = _context.Products.Single(x => x.ProductId == item.ProductId);
+                product.Stock -= item.Quantity;
             }
             _context.SaveChanges();
         }

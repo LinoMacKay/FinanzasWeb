@@ -6,12 +6,15 @@ namespace FoodYeah.Dto
     {
         public List<OrderDetailCreateDto> OrderDetails { get; set; }
         public int CustomerId { get; set; }
+        public CreateQuoteDetailsDto QuoteDetails { get; set; }
     }
 
     public class OrderDetailCreateDto
     {
         public int ProductId { get; set; }
         public byte Quantity { get; set; }
+        public int NumberQuotes { get; set; }
+        public int Frecuency { get; set; }
     }
 
     public class OrderDto

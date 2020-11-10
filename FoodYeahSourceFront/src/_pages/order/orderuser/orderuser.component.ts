@@ -12,6 +12,8 @@ import { CustomerService } from 'src/_service/customer.service';
 import { LoginService } from 'src/_service/login.service';
 import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 import { ActivatedRoute, Router } from '@angular/router';
+import { createQuoteDetailsDto } from 'src/_model/CreateQuoteDetailsDto';
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 
 
 
@@ -26,10 +28,15 @@ export class OrderuserComponent implements OnInit {
   Username: string;
   customer: Customer;
   order: Order;
+  quotesNumber:number;
   customers: Array<Customer>;
   orderDetails: Array<OrderDetail>;
   products: Array<Product>;
   product
+  frecuency:number;
+  stringFrecuency:string;
+  frecuencies = ["Semanal","Quincenal","Mensual"]
+
   productseleccionado: Product;
   id: number;
   private sub: any;
@@ -50,11 +57,7 @@ export class OrderuserComponent implements OnInit {
     
     this.product = new Product();
     
-    if (this.id != null){
-      this.productService.getProductById(this.id).subscribe(data => {
-        this.product = data;
-      })
-    }
+ 
 
     this.orderDetails = new Array<OrderDetail>();
     this.order = new Order();
@@ -74,20 +77,31 @@ export class OrderuserComponent implements OnInit {
 
   register() {
     this.order.orderDetails = this.orderDetails;
+    //Creacion de la cuota
+    let QuoteDetails = new createQuoteDetailsDto();
+    QuoteDetails.NumberQuotes = this.quotesNumber
 
+    if(this.stringFrecuency == this.frecuencies[0])
+    this.frecuency = 7
+    if(this.stringFrecuency == this.frecuencies[1])
+    this.frecuency = 15
+    if(this.stringFrecuency == this.frecuencies[2])
+    this.frecuency = 30
+
+
+    QuoteDetails.Frecuency = this.frecuency;
+    this.order.quoteDetails = QuoteDetails;
+    
+    console.log(this.order)
+    //Funcion de la creacion de la orden
     this.orderService.registerOrder(this.order).subscribe(data => {
       this.orderService.getAllOrders().
         map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username)).subscribe(orders => {
           this.orderService.ordersChange.next(orders);
-          this.orderService.message.next("Se registro");
+          this.orderService.message.next("Se registro la orden");
         });
 
-        var length
-        this.orderService.getAllOrders().subscribe((data:any) => {
-          console.log(data.items.length)
-          length = data.items.length
-          this.router.navigate(['/orderuserbuy', length]);
-        })
+     
     });
   }
 
@@ -97,6 +111,7 @@ export class OrderuserComponent implements OnInit {
 
   AddOrderDetail(quantity: number) {
     if(quantity >0){
+
     this.order.customerId = this.customer.customerId;
     let _orderDetail = new OrderDetail();
     _orderDetail.product = this.product;

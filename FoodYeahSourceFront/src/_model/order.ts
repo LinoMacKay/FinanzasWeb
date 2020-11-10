@@ -1,6 +1,7 @@
 import { Customer } from './customer';
 import { OrderDetail } from './orderDetail';
 import { MatTableDataSource } from '@angular/material/table';
+import { createQuoteDetailsDto } from './CreateQuoteDetailsDto';
 
 export class Order {
     id:number;
@@ -11,4 +12,5 @@ export class Order {
     endTime:string;
     totalPrice:number;
     status:string;
+    quoteDetails?:createQuoteDetailsDto;
 }

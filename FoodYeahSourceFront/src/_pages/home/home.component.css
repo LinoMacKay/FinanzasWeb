@@ -10,8 +10,13 @@ mat-card {
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
-    left:6%;
+    left:6%;    
   }
+  mat-card:hover {
+    background-color: #F1F1F1;
+  }
+  
+
   .main-container{
     display:grid;
     place-items: center;
@@ -35,6 +40,7 @@ mat-card {
   }
   mat-form-field {
     display: block;
+
   }
   .products{
     flex-basis:30%;
@@ -45,6 +51,10 @@ mat-card {
   .orders{
     flex-basis:30%
   }
+  .profile{
+    flex-basis:30%
+  }
+
 
   
   .clients{

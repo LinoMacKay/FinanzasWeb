@@ -1,6 +1,7 @@
+<div class="container">
 <div class="example-container">
     <h1 class="main-title">Creación de orden</h1>
-    <h2 class="main-title">Selecciona los platos para generar tu orden</h2>
+    <h2 class="main-title">Selecciona los productos para generar tu orden</h2>
 
     <div *ngIf="product == null">
         <mat-form-field class="mat-form-field">
@@ -21,15 +22,25 @@
                 {{product.productName}}
             </mat-option>
         </mat-select>
-        <br><br>
-        <!-- <p>Producto Seleccionado:{{product.productName}}</p> -->
     </mat-form-field>
-
 
     <mat-form-field>
         <mat-label>Cantidad</mat-label>
         <input matInput type="number" placeholder="Cantidad" #quantity required>
     </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Numero de cuotas</mat-label>
+        <input matInput type="number" placeholder="Numero de Cuotas" [(ngModel)]="quotesNumber" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Frecuencia de pago</mat-label>
+        <mat-select [(ngModel)]="stringFrecuency" required>
+            <mat-option *ngFor="let stringFrecuency of frecuencies" [value]="stringFrecuency" required>
+                {{stringFrecuency}}
+            </mat-option>
+        </mat-select>    </mat-form-field>
 
     <!--imprimimos los products, con su id y su precio-->
     <br>
@@ -56,9 +67,9 @@
     </button>
     <br>
 
-
-    <br>
+    <div class="buttons">
     <button mat-raised-button color="primary" (click)="register()">Registrar Orden</button>
     <button mat-raised-button color="accent" (click)="close()">Cancelar</button>
-    <br>
+</div>
+</div>
 </div>
