@@ -56,6 +56,13 @@ export class CustomerService {
       });
     }
 
+    getByEmail(email: string) {
+      let access_token = JSON.parse(sessionStorage.getItem(environment.TOKEN_NAME)).access_token;
+      return this.http.get<any>(`${this.url}/email/${email}`, {
+        headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+      });
+    }
+
   
 
 

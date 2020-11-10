@@ -187,6 +187,21 @@ namespace FoodYeah.Service.Impl
             }
             return false;
         }
+
+        public DataCollection<OrderDto> GetByUserEmail(string email)
+        {
+            return _mapper.Map<DataCollection<OrderDto>>(
+            _context.Orders.OrderByDescending(x => x.OrderId)
+                                .Where(x=>x.Customer.UserEmail == email)
+                               .Include(x => x.Customer)
+                               .Include(x => x.OrderDetails)
+                                .ThenInclude(x => x.Order)
+                               .Include(x => x.OrderDetails)
+                                .ThenInclude(x => x.Product)
+                               .AsQueryable()
+                               .Paged(1, 1000)
+                    );
+        }
         //
         /*
         public decimal TIS(decimal capital, int frecuency, decimal interestRate){

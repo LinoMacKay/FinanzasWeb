@@ -114,7 +114,9 @@ namespace FoodYeah.Service
         public CustomerDto GetByEmail(string Email)
         {
             return _mapper.Map<CustomerDto>(
-                _context.Customers.Single(x => x.UserEmail.ToLower() == Email.ToLower()));
+                _context.Customers.Include(x=>x.LOC)
+                .Include(x=>x.Customer_Category)
+                .Single(x => x.UserEmail.ToLower() == Email.ToLower()));
         }
 
         public DataCollection<CustomerDto> GetOnlyCustomers(int page, int take)

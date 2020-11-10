@@ -31,7 +31,6 @@ export class OrderuserComponent implements OnInit {
   products: Array<Product>;
   product
   productseleccionado: Product;
-  //para la obtencion de la id
   id: number;
   private sub: any;
   constructor(private orderService: OrderService, private productService: ProductService,
@@ -40,14 +39,14 @@ export class OrderuserComponent implements OnInit {
   }
 
   ngOnInit() {
-    //obtencion de la id
-    this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
 
-      // In a real app: dispatch action to load the details here.
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+
     });
 
-    this.Username = this.loginservice.getUserName();
+    this.Username = this.loginservice.getEmail();
+    console.log(this.Username)
     
     this.product = new Product();
     
@@ -60,14 +59,16 @@ export class OrderuserComponent implements OnInit {
     this.orderDetails = new Array<OrderDetail>();
     this.order = new Order();
 
-    this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
+    this.productService.getAllProducts().subscribe((data:any) => {
+      this.products = data.items;
+      console.log(this.products)
     });
-    this.customerService.getAllCustomers().subscribe(data => {
-      this.customers = data;
+    this.customerService.getAllCustomers().subscribe((data:any) => {
+      this.customers = data.items;
     })
-    this.customerService.getCustomerByUserName(this.Username).subscribe(data => {
+    this.customerService.getByEmail(this.Username).subscribe(data => {
       this.customer = data;
+      console.log(this.customer)
     })
   }
 
@@ -82,9 +83,9 @@ export class OrderuserComponent implements OnInit {
         });
 
         var length
-        this.orderService.getAllOrders().subscribe(data => {
-          console.log(data.length)
-          length = data.length
+        this.orderService.getAllOrders().subscribe((data:any) => {
+          console.log(data.items.length)
+          length = data.items.length
           this.router.navigate(['/orderuserbuy', length]);
         })
     });
@@ -96,15 +97,13 @@ export class OrderuserComponent implements OnInit {
 
   AddOrderDetail(quantity: number) {
     if(quantity >0){
-    console.log(this.product.id);
-
-    this.order.costumer = this.customer;
+    this.order.customerId = this.customer.customerId;
     let _orderDetail = new OrderDetail();
     _orderDetail.product = this.product;
+    _orderDetail.productId = this.product.productId;
     _orderDetail.quantity = quantity;
-
-
     this.orderDetails.push(_orderDetail);
+    console.log(this.orderDetails)
     }
   }
 

@@ -56,14 +56,13 @@ export class OrderComponent {
     console.log(this.User);
 
     if(this.User == 'USER'){
-    this.orderService.getAllOrders().
-    map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username ))
-    .subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource<Order>(data.items);
+      let email = this.loginService.getEmail()
+      this.orderService.getAllOrdersByEmail(email).subscribe((data:any)=>{
+        this.dataSource = new MatTableDataSource<Order>(data.items);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(data.items)
-    });}
+      })
+    }
     else {
       this.orderService.getAllOrders()
     .subscribe((data:any) => {

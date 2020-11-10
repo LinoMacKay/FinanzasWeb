@@ -13,6 +13,8 @@ namespace FoodYeah.Service
         OrderSimpleDto GetByIdSimple(int id);
         OrderSimpleDto UpdateStatus(int id, string status);
         OrderDto Create(OrderCreateDto model);
+
+        DataCollection<OrderDto> GetByUserEmail(string email);
         string GetDeliveredOrder(int id);
         void SetEndTime(int id);
         string GetAverageTime();

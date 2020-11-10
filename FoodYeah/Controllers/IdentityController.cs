@@ -66,7 +66,7 @@ namespace FoodYeah.Controllers
                 _customerService.Create(new CustomerCreateDto { CustomerName = user.FirstName, CustomerLastName = user.LastName, Customer_CategoryId = 2, CustomerAge = 0, Email = user.Email });
                 var target = _customerService.GetByEmail(user.Email);
 
-                _locService.CreateLOC(new CreateLOCDto { CustomerId = target.CustomerId , TotalLineOfCredit = 1000,TCEA = 10});
+                _locService.CreateLOC(new CreateLOCDto { CustomerId = target.CustomerId , TotalLineOfCredit = 1000,TEA = 10});
             }
             var DefaultRole = await _userManager.AddToRoleAsync(user, userRole);
             if (!result.Succeeded)            

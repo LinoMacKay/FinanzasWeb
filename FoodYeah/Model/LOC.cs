@@ -13,7 +13,7 @@ namespace FoodYeah.Model
         public int LOCId { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public decimal TCEA { get; set; }
+        public decimal TEA { get; set; }
         public List<QuoteDetail> QuoteDetails { get; set; }
         public decimal AvalibleLineOfCredit { get; set; }
         public decimal TotalLineOfCredit { get; set; }

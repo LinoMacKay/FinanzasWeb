@@ -37,14 +37,7 @@ export class OrderuserbuyComponent implements OnInit {
 
       // In a real app: dispatch action to load the details here.
     });
-
-    this.order = new Order();
-
-    if (this.id != null)
-      this.orderService.getOrderById(this.id).subscribe(data => {
-        this.order = data;
-      });
-
+   
     this.tarjetaElejida = new Card();
     this.customer = new Customer();
     this.cardService.getAllCards().subscribe(

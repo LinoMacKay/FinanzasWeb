@@ -26,7 +26,7 @@ namespace FoodYeah.Dto
         public string Date { get; set; }
         public string InitTime { get; set; }
         public string EndTime { get; set; }
-        public byte TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string Status { get; set; }
         //
 

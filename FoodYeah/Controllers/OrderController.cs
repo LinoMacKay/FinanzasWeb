@@ -75,5 +75,11 @@ namespace FoodYeah.Controllers
             });
         }
 
+        [HttpGet("email/{email}")]
+        public DataCollection<OrderDto> GetByEmail(string email)
+        {
+           return _orderService.GetByUserEmail(email);
+        }
+
     }
 }

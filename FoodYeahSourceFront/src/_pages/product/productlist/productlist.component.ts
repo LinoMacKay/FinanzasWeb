@@ -11,27 +11,18 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ProductlistComponent implements OnInit {
   products: any;
-  menudeldia: any;
   constructor(private productService: ProductService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    var d = new Date();
-    var n = d.getDay();
-
-    this.productService.getPlatoCarta().subscribe((data:any) => {
+  
+    this.productService.getAllProducts().subscribe((data:any) => {
       this.products = data.items;
       console.log(this.products);
     });
 
-    this.productService.getMenuDelDia(n).
-      map((products: Array<Product>) => products.filter(x => x.category.product_CategoryId === 2))
-      .subscribe(data => this.menudeldia = data);
+    
 
-    // this.productService.getMenuDelDia(n).subscribe(data => {
-    //   this.menudeldia = data;
-    //   this.menudeldia = this.menudeldia;
-    //   console.log(this.menudeldia);
-    // });
+    
   }
 
 

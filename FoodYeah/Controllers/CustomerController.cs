@@ -42,5 +42,14 @@ namespace FoodYeah.Controllers
 
         [HttpGet("onlycustomers")]
         public ActionResult<DataCollection<CustomerDto>> GetOnylCustomers(int page = 1, int take = 20) => _CustomerService.GetOnlyCustomers(page, take);
+
+
+        [HttpGet("email/{email}")]
+        public ActionResult<CustomerDto> GetByEmail(string email) => _CustomerService.GetByEmail(email);
+
+
     }
+
+
+
 }
