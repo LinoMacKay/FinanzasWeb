@@ -18,15 +18,17 @@ namespace FoodYeah.Service.Impl
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly QuoteDetailService _quoteDetailService;
+        private readonly TransactionService _transactionService;
 
         public OrderServiceImpl(
             ApplicationDbContext context,
-            IMapper mapper,QuoteDetailService quoteDetailService
+            IMapper mapper,QuoteDetailService quoteDetailService, TransactionService transactionService
         )
         {
             _quoteDetailService = quoteDetailService;
             _context = context;
             _mapper = mapper;
+            _transactionService = transactionService;
         }
 
         public ActionResult Create(OrderCreateDto model)
@@ -83,8 +85,13 @@ namespace FoodYeah.Service.Impl
                 loc.AvalibleLineOfCredit -= order.TotalPrice;
                 _quoteDetailService.Create(new CreateQuoteDetailsDto { Frecuency = entry.Frecuency, LocId = loc.LOCId, NumberQuotes = entry.NumberQuotes},order.TotalPrice);
                 DecreaseStock(order);
+                _transactionService.Create(new TransactionCreateDto { CustomerId = customer.CustomerId, Description="La orden ha sido creada correctamente",Status="Accepted"});
             }
-            
+            else
+            {
+                _transactionService.Create(new TransactionCreateDto { CustomerId = customer.CustomerId, Description = "No hay suficiente dinero disponible en la linea de credito", Status = "Rejected" });
+            }
+
         }
 
         public OrderDto GetById(int id)

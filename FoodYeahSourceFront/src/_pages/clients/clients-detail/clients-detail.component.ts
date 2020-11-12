@@ -16,11 +16,13 @@ export class ClientsDetailComponent implements OnInit {
   id: number;
   color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
+  readonly:any;
   value = 100;
   constructor(private router:Router,private customerService:CustomerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    this.readonly = true;
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
 
@@ -29,9 +31,15 @@ export class ClientsDetailComponent implements OnInit {
     });
     this.customerService.getById(this.id).subscribe(data=>{
       this.client = data
-      this.value = this.client.loc.avalibleLineOfCredit /this.client.loc.lineOfCredit
+      this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
     })
     
   }
+  ToggleToEdit(){
+    this.readonly = false
+  }
+  Save(){
+    this.readonly = true
+    }
 
 }

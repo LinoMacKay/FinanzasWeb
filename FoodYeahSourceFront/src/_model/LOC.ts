@@ -1,7 +1,8 @@
 export class LOC {
-    tcea:string;
+    tea:string;
     fee:string;
     period:number;
     lineOfCredit:number;
     avalibleLineOfCredit:number;
+    totalLineOfCredit:number;
  }

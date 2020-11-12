@@ -15,6 +15,24 @@
             <li><h2>Nombre del cliente: <h3>{{client.customerName}} </h3></h2></li>
             <li><h2>Apellido del cliente: <h3> {{client.customerLastName}} </h3></h2></li>            
           </ul>  
-          
+          <ul id="details">
+            <li><h2>Linea de credito disponible: <h3>{{client.loc.avalibleLineOfCredit}} </h3></h2></li>
+            <li><h2>Linea de credito total: <h3> <mat-form-field>
+                <input matInput value={{client.loc.totalLineOfCredit}}  readonly [readOnly]="readonly" >
+            </mat-form-field> </h3></h2></li>         
+          </ul>  
+          <ul id="details">
+            <li><h2>TEA:<h3> <mat-form-field>
+                <input matInput value={{client.loc.tea}} readonly [readOnly]="readonly" >
+            </mat-form-field></h3> </h2></li> 
+
+            <li>  <button mat-fab color="warn" (click)="ToggleToEdit()">
+          <mat-icon>create</mat-icon>
+        </button>
+        <button style="margin-left:5px" mat-fab color="primary" (click)="Save()" *ngIf="!readonly">
+            <mat-icon>check</mat-icon>
+          </button>
+
+    </li>
+          </ul>  
     </div>
-</div>

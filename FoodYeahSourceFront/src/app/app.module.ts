@@ -30,6 +30,7 @@ import { OrderuserComponent } from 'src/_pages/order/orderuser/orderuser.compone
 import { OrderuserbuyComponent } from 'src/_pages/order/orderuserbuy/orderuserbuy.component';
 import { ClientsComponent } from 'src/_pages/clients/clients.component';
 import { ClientsDetailComponent } from 'src/_pages/clients/clients-detail/clients-detail.component';
+import {MatInputModule} from '@angular/material/input';
 
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
@@ -59,6 +60,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AppRoutingModule,
     MaterialModule,
     HttpClientModule,
+    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,

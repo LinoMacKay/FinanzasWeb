@@ -14,6 +14,7 @@ import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 import { ActivatedRoute, Router } from '@angular/router';
 import { createQuoteDetailsDto } from 'src/_model/CreateQuoteDetailsDto';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -42,7 +43,7 @@ export class OrderuserComponent implements OnInit {
   private sub: any;
   constructor(private orderService: OrderService, private productService: ProductService,
     private customerService: CustomerService, private loginservice: LoginService, private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,private matSnackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -94,13 +95,15 @@ export class OrderuserComponent implements OnInit {
     
     console.log(this.order)
     //Funcion de la creacion de la orden
-    this.orderService.registerOrder(this.order).subscribe(data => {
+    this.orderService.registerOrder(this.order).subscribe((data:any) => {
       this.orderService.getAllOrders().
         map((users: Array<Order>) => users.filter(user => user.costumer.username === this.Username)).subscribe(orders => {
           this.orderService.ordersChange.next(orders);
           this.orderService.message.next("Se registro la orden");
         });
-
+        this.matSnackBar.open(data.detalleDeOrden.value.message,'INFO',{
+          duration:2000
+        });
      
     });
   }

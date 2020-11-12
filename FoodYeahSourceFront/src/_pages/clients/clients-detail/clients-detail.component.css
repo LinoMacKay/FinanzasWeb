@@ -24,8 +24,11 @@ width: 80%;
 .profile{
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
 }
-
+input{
+    margin-top:2px;
+}
 .progressbar mat-progress-bar{
     height:30px;
     width:80%;

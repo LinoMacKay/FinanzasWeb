@@ -30,7 +30,7 @@ namespace FoodYeah.Service.Impl
         public QuoteDetailsDto Create(CreateQuoteDetailsDto model,decimal totalPrice)
         {
             
-            decimal tasa = _context.LOCs.Single(x => x.LOCId == model.LocId).TEA;
+            decimal tasa = (_context.LOCs.Single(x => x.LOCId == model.LocId).TEA / 100);
             decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasa)), model.NumberQuotes));
             decimal quote = totalPrice * ((tasa * e)/(e - 1));
             List<decimal> cuotas = new List<decimal>();

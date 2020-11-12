@@ -9,6 +9,7 @@ namespace FoodYeah.Dto
     {
         public decimal TEA { get; set; }
         public decimal LineOfCredit { get; set; }
+        public decimal TotalLineOfCredit { get; set; }
         public decimal AvalibleLineOfCredit { get; set; }
 
         
