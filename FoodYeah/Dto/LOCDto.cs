@@ -7,6 +7,7 @@ namespace FoodYeah.Dto
 {
     public class LOCDto
     {
+        public int LOCId { get; set; }
         public decimal TEA { get; set; }
         public decimal LineOfCredit { get; set; }
         public decimal TotalLineOfCredit { get; set; }
@@ -23,6 +24,7 @@ namespace FoodYeah.Dto
     }
     public class UpdateLOCDto
     {
+        public int LOCId { get; set; }
         public decimal TEA { get; set; }
         public decimal TotalLineOfCredit { get; set; }
        
