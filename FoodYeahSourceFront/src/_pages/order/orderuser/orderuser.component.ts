@@ -12,7 +12,7 @@ import { CustomerService } from 'src/_service/customer.service';
 import { LoginService } from 'src/_service/login.service';
 import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 import { ActivatedRoute, Router } from '@angular/router';
-import { createQuoteDetailsDto } from 'src/_model/CreateQuoteDetailsDto';
+import { createQuoteDetailsDto } from 'src/_model/createQuoteDetailsDto';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

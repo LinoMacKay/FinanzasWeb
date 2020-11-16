@@ -1,7 +1,7 @@
 import { Customer } from './customer';
 import { OrderDetail } from './orderDetail';
 import { MatTableDataSource } from '@angular/material/table';
-import { createQuoteDetailsDto } from './CreateQuoteDetailsDto';
+import { createQuoteDetailsDto } from './createQuoteDetailsDto';
 
 export class Order {
     id:number;

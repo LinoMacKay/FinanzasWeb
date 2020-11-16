@@ -9,6 +9,7 @@ using System;
 using FoodYeah.Model.Identity;
 using System.Collections.Generic;
 using FoodYeah.Migrations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FoodYeah.Service
 {
@@ -83,6 +84,7 @@ namespace FoodYeah.Service
                               .Include(x => x.Orders)
                               .Include(x => x.Cards)
                               .Include(x => x.Customer_Category)
+                              .Include(x=>x.Transactions)
                               .OrderByDescending(x => x.CustomerId)
                               .AsQueryable()
                               .Paged(page, take)
@@ -107,6 +109,7 @@ namespace FoodYeah.Service
                  .Include(x => x.Cards)
                  .Include(x => x.Customer_Category)
                  .Include(x=>x.LOC)
+                 .Include(x => x.Transactions)
                  .Single(x => x.CustomerId == id)
             );
         }

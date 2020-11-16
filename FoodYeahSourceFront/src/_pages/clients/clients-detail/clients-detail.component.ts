@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/_model/customer';
 import { LOC } from 'src/_model/LOC';
@@ -23,7 +26,14 @@ export class ClientsDetailComponent implements OnInit {
   editableTea:number;
   editableLineOfCredit:number;
   value = 100;
-  constructor(private router:Router,private customerService:CustomerService, private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar) { }
+  dataSource: MatTableDataSource<any>;
+  
+  displayedColumns: string[] = ['nombre','precio','stock', 'categoria','acciones'];
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+
+  constructor(private router:Router,private customerService:CustomerService, 
+    private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
