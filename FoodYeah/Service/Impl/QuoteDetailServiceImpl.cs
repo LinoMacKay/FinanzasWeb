@@ -31,12 +31,21 @@ namespace FoodYeah.Service.Impl
         {
             
             decimal tasa = (_context.LOCs.Single(x => x.LOCId == model.LocId).TEA / 100);
-            decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasa)), model.NumberQuotes));
-            decimal quote = totalPrice * ((tasa * e)/(e - 1));
+            double numerobase = 1 + Decimal.ToDouble(tasa);
+            decimal potencia = Convert.ToDecimal(model.Frecuency) / 360m;
+
+            decimal tasaConvertida = Convert.ToDecimal(Math.Pow(numerobase, Decimal.ToDouble(potencia)) - 1);
+            
+            decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasaConvertida)), model.NumberQuotes));
+            decimal quote = totalPrice * ((tasaConvertida * e)/(e - 1));
             List<decimal> cuotas = new List<decimal>();
+            decimal Total = 0m;
             for(int i = 0; i < model.NumberQuotes; i++)
             {
+                quote = Math.Round(quote, 2);
                 cuotas.Add(quote);
+                Total += quote;
+                
             }
 
             var entry = new QuoteDetail
@@ -46,7 +55,9 @@ namespace FoodYeah.Service.Impl
                 PaymentType = model.PaymentType,
                 InterestRate = tasa,
                 LocId = model.LocId,
-                Quotes = cuotas
+                Quotes = cuotas,
+                Debt = cuotas[0],
+                LastTotal = Total
             };
             
             _context.QuoteDetails.Add(entry);

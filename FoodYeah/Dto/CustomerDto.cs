@@ -31,7 +31,7 @@ namespace FoodYeah.Dto
         public LOCDto LOC { get; set; }
         public List<CardDto> Cards { get; set; } 
         public List<OrderDto> Orders {get; set; }
-        public List<TransactionDto> Transactions { get; set; }
+        public List<TransactionSimpleDto> Transactions { get; set; }
         public string UserEmail { get; set; }
     }
 

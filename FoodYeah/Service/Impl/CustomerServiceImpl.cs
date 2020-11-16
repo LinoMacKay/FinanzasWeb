@@ -109,6 +109,7 @@ namespace FoodYeah.Service
                  .Include(x => x.Cards)
                  .Include(x => x.Customer_Category)
                  .Include(x=>x.LOC)
+                 .ThenInclude(x => x.QuoteDetails)
                  .Include(x => x.Transactions)
                  .Single(x => x.CustomerId == id)
             );
@@ -130,6 +131,7 @@ namespace FoodYeah.Service
                               .Include(x => x.Orders)
                               .Include(x => x.Cards)
                               .Include(x=>x.LOC)
+                              .ThenInclude(x=>x.QuoteDetails)
                               .Include(x => x.Customer_Category)
                               .OrderByDescending(x => x.CustomerId)
                               .AsQueryable()

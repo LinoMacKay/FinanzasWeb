@@ -10,6 +10,7 @@ import { Customer } from 'src/_model/customer';
 import { LOC } from 'src/_model/LOC';
 import { CustomerService } from 'src/_service/customer.service';
 import { LocService } from 'src/_service/loc.service';
+import { LoginService } from 'src/_service/login.service';
 
 @Component({
   selector: 'app-clients-detail',
@@ -26,31 +27,42 @@ export class ClientsDetailComponent implements OnInit {
   editableTea:number;
   editableLineOfCredit:number;
   value = 100;
-  dataSource: MatTableDataSource<any>;
+  User:string;
+  dataTransactions: MatTableDataSource<any>;
   
-  displayedColumns: string[] = ['nombre','precio','stock', 'categoria','acciones'];
+  displayedColumns: string[] = ['Id','Descripcion','Estado'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private router:Router,private customerService:CustomerService, 
-    private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar) { }
+    private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar,private loginService:LoginService) { }
 
   ngOnInit(): void {
 
     this.readonly = true;
+    this.User = this.loginService.getUser()
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
 
      
       // In a real app: dispatch action to load the details here.
     });
-    this.customerService.getById(this.id).subscribe(data=>{
+    this.customerService.getById(this.id).subscribe((data:any)=>{
+
       this.client = data
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.tea
     })
     
+    this.customerService.getById(this.id).subscribe((data:any)=>{
+      this.dataTransactions = new MatTableDataSource<any>(data.transactions);
+      
+      this.dataTransactions.paginator = this.paginator;
+      this.dataTransactions.sort = this.sort;
+      console.log(this.dataTransactions)
+    })
+
   }
   ToggleToEdit(){
     this.readonly = false

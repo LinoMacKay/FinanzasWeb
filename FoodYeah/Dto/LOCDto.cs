@@ -12,6 +12,7 @@ namespace FoodYeah.Dto
         public decimal LineOfCredit { get; set; }
         public decimal TotalLineOfCredit { get; set; }
         public decimal AvalibleLineOfCredit { get; set; }
+        public List<SimpleQuoteDetailsDtos> QuoteDetails { get; set; }
 
         
     }

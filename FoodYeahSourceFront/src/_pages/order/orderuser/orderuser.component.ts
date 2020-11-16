@@ -104,6 +104,7 @@ export class OrderuserComponent implements OnInit {
         this.matSnackBar.open(data.detalleDeOrden.value.message,'INFO',{
           duration:2000
         });
+        this.router.navigate(['home']);
      
     });
   }

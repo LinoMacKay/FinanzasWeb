@@ -20,4 +20,11 @@ namespace FoodYeah.Dto
         public string Status { get; set; }
         public string Description { get; set; }
     }
+
+    public class TransactionSimpleDto
+    {
+        public int TransactionId { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
+    }
 }
