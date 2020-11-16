@@ -1,5 +1,5 @@
 export class LOC {
-    tea:string;
+    tea:number;
     fee:string;
     locId:number;
     period:number;

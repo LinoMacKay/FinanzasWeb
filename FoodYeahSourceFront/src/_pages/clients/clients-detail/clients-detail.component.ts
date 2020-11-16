@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/_model/customer';
 import { LOC } from 'src/_model/LOC';
@@ -19,8 +20,10 @@ export class ClientsDetailComponent implements OnInit {
   color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
   readonly:any;
+  editableTea:number;
+  editableLineOfCredit:number;
   value = 100;
-  constructor(private router:Router,private customerService:CustomerService, private route: ActivatedRoute,private locservice:LocService) { }
+  constructor(private router:Router,private customerService:CustomerService, private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -34,6 +37,8 @@ export class ClientsDetailComponent implements OnInit {
     this.customerService.getById(this.id).subscribe(data=>{
       this.client = data
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
+      this.editableLineOfCredit = this.client.loc.totalLineOfCredit
+      this.editableTea = this.client.loc.tea
     })
     
   }
@@ -44,8 +49,22 @@ export class ClientsDetailComponent implements OnInit {
     this.readonly = true
     let locId = this.client.loc.locId;
     let Loc = new LOC(); 
+    Loc.tea = this.editableTea
+    Loc.totalLineOfCredit = this.editableLineOfCredit
     
-    this.locservice.updateLOC(locId,Loc).subscribe()
+    console.log(Loc)
+    this.locservice.updateLOC(locId,Loc).subscribe(
+      data=>{
+        this.customerService.getById(this.id).subscribe(data=>{
+          this.client = data
+          this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
+          this.editableLineOfCredit = this.client.loc.totalLineOfCredit
+          this.editableTea = this.client.loc.tea
+          this.matSnackBar.open('Se actualizó correctamente','Aceptar',{
+            duration:2000
+          });        })
+      }
+    )
     }
 
 }
