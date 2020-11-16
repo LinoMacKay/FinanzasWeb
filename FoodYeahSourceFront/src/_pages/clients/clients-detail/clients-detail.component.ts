@@ -29,7 +29,9 @@ export class ClientsDetailComponent implements OnInit {
   value = 100;
   User:string;
   dataTransactions: MatTableDataSource<any>;
-  
+  dataQuotes: MatTableDataSource<any>;
+  frecuenciaString:string;
+  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -47,7 +49,7 @@ export class ClientsDetailComponent implements OnInit {
      
       // In a real app: dispatch action to load the details here.
     });
-    this.customerService.getById(this.id).subscribe((data:any)=>{
+    this.customerService.getById(this.id).subscribe((data:Customer)=>{
 
       this.client = data
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
@@ -61,6 +63,15 @@ export class ClientsDetailComponent implements OnInit {
       this.dataTransactions.paginator = this.paginator;
       this.dataTransactions.sort = this.sort;
       console.log(this.dataTransactions)
+
+/////////////////////////////////////////////////////////////////////////////////////
+      this.dataQuotes = new MatTableDataSource<any>(data.loc.quoteDetails);
+      this.dataQuotes.paginator = this.paginator;
+      this.dataQuotes.sort = this.sort;
+      
+
+
+      console.log(this.dataQuotes)
     })
 
   }

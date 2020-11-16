@@ -15,7 +15,7 @@ namespace FoodYeah.Dto
         public List<decimal> Quotes { get; set; }
         public int Frecuency { get; set; }
         public int PaymentType { get; set; }
-        public int Debt { get; set; }
+        public decimal Debt { get; set; }
         public decimal InterestRate { get; set; }
         public decimal LastTotal { get; set; }
     }
@@ -50,6 +50,8 @@ namespace FoodYeah.Dto
         public int NumberQuotes { get; set; }
         public int Frecuency { get; set; }
         public decimal InterestRate { get; set; }
+        public decimal Debt { get; set; }
+        public decimal LastTotal { get; set; }
 
 
     }

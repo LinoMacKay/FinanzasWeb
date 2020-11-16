@@ -64,3 +64,34 @@
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
+
+    <div class="Debts" >
+      <mat-divider></mat-divider>
+      <h1 style="margin-top: 10px;">Deudas</h1>
+      <mat-table [dataSource]="dataQuotes" matSort>
+        <ng-container matColumnDef="numberQuotes" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Numero de cuotas </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.numberQuotes}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="frecuency">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Frecuencia </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{row.frecuency}} dias</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="interestRate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tasa </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.interestRate * 100}}%  </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actualDebt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Actual </mat-header-cell>
+          <mat-cell *matCellDef="let row"> S/{{row.debt}}  </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="totalDebt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Total </mat-header-cell>
+        <mat-cell *matCellDef="let row"> S/{{row.lastTotal}}  </mat-cell>
+    </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedQuoteColumns"></mat-header-row>
+        <mat-row  *matRowDef="let row; columns: displayedQuoteColumns;">
+        </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>

@@ -30,6 +30,9 @@ mat-table {
     list-style: none;
    width: 500px;
 }
+.Debts{
+    margin-top: 20px;
+}
 
 #details {
     padding-inline-start:0;

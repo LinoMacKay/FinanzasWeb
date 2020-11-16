@@ -41,7 +41,7 @@ export class OrderComponent {
   Username:string;
   dataSource: MatTableDataSource<Order>;
   ordersData: Order[] = [];
-  columnsToDisplay = [ 'customer', 'inittime', 'totalPrice', 'actions'];
+  columnsToDisplay = [ 'customer', 'inittime', 'totalPrice'];
   innerDisplayedColumns = ['id', 'totalPrice'];
   expandedElement: Order | null;
   test:Array<Order>;
