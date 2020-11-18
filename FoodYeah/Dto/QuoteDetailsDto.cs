@@ -53,6 +53,8 @@ namespace FoodYeah.Dto
         public decimal InterestRate { get; set; }
         public decimal Debt { get; set; }
         public decimal LastTotal { get; set; }
+        public DateTime FirstPaidDay { get; set; }
+        public DateTime LastPaidDay { get; set; }
 
 
     }

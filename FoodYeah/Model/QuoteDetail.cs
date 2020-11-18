@@ -17,5 +17,7 @@ namespace FoodYeah.Model
         public decimal Debt { get; set; }
         public decimal InterestRate { get; set; }
         public decimal LastTotal { get; set; }
+        public DateTime FirstPaidDay { get; set; }
+        public DateTime LastPaidDay { get; set; }
     }
 }

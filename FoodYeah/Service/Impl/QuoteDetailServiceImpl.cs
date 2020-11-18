@@ -47,6 +47,8 @@ namespace FoodYeah.Service.Impl
                 
             }
 
+
+            var primerDiaDePago = DateTime.Today;
             var entry = new QuoteDetail
             {
                 NumberQuotes = model.NumberQuotes,
@@ -56,7 +58,9 @@ namespace FoodYeah.Service.Impl
                 LocId = model.LocId,
                 Quotes = cuotas,
                 Debt = cuotas[0],
-                LastTotal = Total
+                LastTotal = Total,
+                FirstPaidDay = primerDiaDePago,
+                LastPaidDay = primerDiaDePago.AddDays(model.Frecuency)
             };
             
             _context.QuoteDetails.Add(entry);
