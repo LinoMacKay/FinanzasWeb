@@ -15,17 +15,14 @@ namespace FoodYeah.Service.Impl
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private static int id;
         public TransactionServiceImpl(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            id = 0;
         }
         public TransactionDto Create(TransactionCreateDto model)
         {
             var entry = new Transaction {
-                TransactionId = id++,
                 Customer = _context.Customers.Single(x => x.CustomerId == model.CustomerId),
                 CustomerId = model.CustomerId,
                 Status = model.Status,

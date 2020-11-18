@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static FoodYeah.Commons.Enums;
 
 namespace FoodYeah.Service.Impl
 {
@@ -25,12 +26,29 @@ namespace FoodYeah.Service.Impl
             _mapper = mapper;
             _transactionService = transactionService;
         }
+        public decimal ConvertToTea(Enums.TypeRate type, decimal rate)
+        {
+            if(type == (TypeRate)2)
+            {
+                decimal TNA = Convert.ToDecimal((Math.Pow(Decimal.ToDouble( 1+(rate / 360)), 360)) - 1);
+                return TNA;
+            }
+            if (type == (TypeRate)3)
+            {
+                return rate;
+            }
 
+                return rate;
+            
+        }
         public QuoteDetailsDto Create(CreateQuoteDetailsDto model,decimal totalPrice)
         {
             
-            decimal tasa = (_context.LOCs.Single(x => x.LOCId == model.LocId).TEA / 100);
-            double numerobase = 1 + Decimal.ToDouble(tasa);
+            decimal tasa = (_context.LOCs.Single(x => x.LOCId == model.LocId).Rate / 100);
+            var TypeRate = (_context.LOCs.Single(x => x.LOCId == model.LocId).TypeRate);
+            decimal newTasa = ConvertToTea(TypeRate, tasa);
+
+            double numerobase = 1 + Decimal.ToDouble(newTasa);
             decimal potencia = Convert.ToDecimal(model.Frecuency) / 360m;
 
             decimal tasaConvertida = Convert.ToDecimal(Math.Pow(numerobase, Decimal.ToDouble(potencia)) - 1);
@@ -108,12 +126,12 @@ namespace FoodYeah.Service.Impl
             {
                 if(amount == qd.Quotes.ElementAt(0))
                 {
+                    
                     _transactionService.Create(new TransactionCreateDto
                     {
                         CustomerId = loc.CustomerId,
-                        Status = "Pagado " + qd.Quotes.ElementAt(0).ToString(),
-                        Description = "Cuota " + (qd.NumberQuotes - qd.Quotes.Count + 1).ToString() +
-                        " del conjunto de cuotas cuyo ID es " + qd.QuoteDetailsId.ToString()
+                        Status = "Accepted ",
+                        Description = "Se ha pagado la cuota total con el valor de " + qd.Quotes.ElementAt(0).ToString()
                     });
                     qd.Quotes.RemoveAt(0);
                 }
@@ -121,15 +139,27 @@ namespace FoodYeah.Service.Impl
                     
                         foreach (decimal quote in qd.Quotes.ToList())
                         {
-                        while (amount != 0)
-                        {
+                        
                             if (amount > quote)
                             {
+                                _transactionService.Create(new TransactionCreateDto
+                                {
+                                    CustomerId = loc.CustomerId,
+                                    Status = "Accepted ",
+                                    Description = "Se ha pagado la cuota total con el valor de " + quote.ToString()
+                                });
                                 amount -= quote;
                                 qd.Quotes.RemoveAt(0);
+
                             }
                             else
                             {
+                                _transactionService.Create(new TransactionCreateDto
+                                {
+                                    CustomerId = loc.CustomerId,
+                                    Status = "Accepted ",
+                                    Description = "Se ha pagado parcialmente la cuota  el valor de " + amount.ToString()
+                                });
                                 var cuota = qd.Quotes.ElementAt(0);
                                 qd.Quotes.RemoveAt(0);
                                 cuota -= amount;
@@ -137,11 +167,19 @@ namespace FoodYeah.Service.Impl
                                 qd.LastTotal -= amount;
                                 amount = 0;
                             }
-                        }
-                        }
+                        if (amount == 0) break;
+                    }
+                        
                     }
                 else if(amount < qd.Quotes.ElementAt(0))
                 {
+                    _transactionService.Create(new TransactionCreateDto
+                    {
+                        CustomerId = loc.CustomerId,
+                        Status = "Accepted ",
+                        Description = "Se ha pagado parcialmente la cuota  el valor de " + amount.ToString()
+                    });
+
                     var cuota = qd.Quotes.ElementAt(0);
                     qd.Quotes.RemoveAt(0);
                     cuota -= amount;
@@ -157,11 +195,13 @@ namespace FoodYeah.Service.Impl
                     qd.Debt = qd.Quotes.ElementAt(0);
                     foreach (decimal quote in qd.Quotes.ToList())
                         DeudaTotal += quote;
-                    qd.LastTotal = amount;
+                    qd.LastTotal = DeudaTotal;
                 }
                 _context.SaveChanges();
             }
             else { return; }
         }
+
+       
     }
 }

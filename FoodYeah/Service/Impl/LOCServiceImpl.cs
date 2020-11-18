@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static FoodYeah.Commons.Enums;
 
 namespace FoodYeah.Service.Impl
 {
@@ -27,7 +28,8 @@ namespace FoodYeah.Service.Impl
             var entry = new LOC
             {
                 LOCId = id++,
-                TEA = model.TEA,
+                Rate = model.Rate,
+                TypeRate = (TypeRate)2,
                 TotalLineOfCredit = model.TotalLineOfCredit,
                 AvalibleLineOfCredit = model.TotalLineOfCredit,
                 Customer = _context.Customers.Single(x=>x.CustomerId == model.CustomerId),
@@ -67,8 +69,9 @@ namespace FoodYeah.Service.Impl
 
 
             var target = _context.LOCs.Single(x => x.LOCId == id);
-            target.TEA = model.TEA;
+            target.Rate = model.Rate;
             target.TotalLineOfCredit = model.TotalLineOfCredit;
+            target.TypeRate = model.TypeRate;
             _context.SaveChanges();
         }
     }

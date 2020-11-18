@@ -35,6 +35,7 @@ export class ClientsDetailComponent implements OnInit {
   dataTransactions: MatTableDataSource<any>;
   dataQuotes: MatTableDataSource<any>;
   frecuenciaString:string;
+  editableTypeRate:number;
   displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','firstPaidDay','lastPaidDay','actions'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -60,7 +61,9 @@ export class ClientsDetailComponent implements OnInit {
       this.client = data
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
-      this.editableTea = this.client.loc.tea
+      this.editableTea = this.client.loc.rate
+      this.editableTypeRate = this.client.loc.typeRate
+
     })
 /////////////////////////////////////////////////////////////////////////////////////
     this.customerService.getById(this.id).subscribe((data:any)=>{
@@ -83,8 +86,9 @@ export class ClientsDetailComponent implements OnInit {
     this.readonly = true
     let locId = this.client.loc.locId;
     let Loc = new LOC(); 
-    Loc.tea = this.editableTea
+    Loc.rate = this.editableTea
     Loc.totalLineOfCredit = this.editableLineOfCredit
+    Loc.typeRate = this.editableTypeRate
     
     console.log(Loc)
     this.locservice.updateLOC(locId,Loc).subscribe(
@@ -93,7 +97,8 @@ export class ClientsDetailComponent implements OnInit {
           this.client = data
           this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
           this.editableLineOfCredit = this.client.loc.totalLineOfCredit
-          this.editableTea = this.client.loc.tea
+          this.editableTea = this.client.loc.rate
+          this.editableTypeRate = this.client.loc.typeRate
           this.matSnackBar.open('Se actualizó correctamente','Aceptar',{
             duration:2000
           });        })
