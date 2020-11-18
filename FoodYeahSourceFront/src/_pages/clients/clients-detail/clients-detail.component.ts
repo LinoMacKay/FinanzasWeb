@@ -35,7 +35,7 @@ export class ClientsDetailComponent implements OnInit {
   dataTransactions: MatTableDataSource<any>;
   dataQuotes: MatTableDataSource<any>;
   frecuenciaString:string;
-  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','actions'];
+  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','firstPaidDay','lastPaidDay','actions'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;

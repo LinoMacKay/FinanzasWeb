@@ -67,6 +67,14 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Total </mat-header-cell>
         <mat-cell *matCellDef="let row"> S/{{row.lastTotal}}  </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="firstPaidDay">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Primer dia de pago </mat-header-cell>
+      <mat-cell *matCellDef="let row"> S/{{row.firstPaidDay}}  </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="lastPaidDay">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Vencimiento de la cuota </mat-header-cell>
+    <mat-cell *matCellDef="let row"> S/{{row.firstPaidDay}}  </mat-cell>
+</ng-container>
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">
