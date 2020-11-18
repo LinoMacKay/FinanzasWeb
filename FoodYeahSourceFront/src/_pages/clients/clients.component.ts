@@ -18,7 +18,7 @@ export class ClientsComponent implements OnInit {
 
   User:any;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['nombre', 'description', 'loc','fee','acciones'];
+  displayedColumns: string[] = ['nombre', 'description', 'loc','acciones'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 

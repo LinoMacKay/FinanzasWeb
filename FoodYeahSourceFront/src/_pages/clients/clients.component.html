@@ -20,10 +20,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Linea de Credito </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.loc.avalibleLineOfCredit}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="fee">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Cuota mensual </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.loc.fee}}</mat-cell>
-        </ng-container>
+
         <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
             <mat-cell *matCellDef="let row">

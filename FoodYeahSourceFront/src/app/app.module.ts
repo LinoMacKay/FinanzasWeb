@@ -33,6 +33,7 @@ import { ClientsDetailComponent } from 'src/_pages/clients/clients-detail/client
 import {MatInputModule} from '@angular/material/input';
 
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ClientdetailpaydialogComponent } from 'src/_pages/clients/clients-detail/clientdetailpaydialog/clientdetailpaydialog.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     ProductcategoryComponent,
     CategorydialogComponent,
     CardComponent,
+    ClientdetailpaydialogComponent, 
     CarddialogComponent,
     OrderbuydialogComponent,
     OrderuserComponent,

@@ -17,7 +17,6 @@ namespace FoodYeah.Service.Impl
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly TransactionService _transactionService;
-        private static int id;
 
         public QuoteDetailServiceImpl(ApplicationDbContext context,
           IMapper mapper, TransactionService transactionService)
@@ -42,7 +41,7 @@ namespace FoodYeah.Service.Impl
             decimal Total = 0m;
             for(int i = 0; i < model.NumberQuotes; i++)
             {
-                quote = Math.Round(quote, 2);
+                quote = Math.Round(quote, 1);
                 cuotas.Add(quote);
                 Total += quote;
                 
@@ -96,15 +95,15 @@ namespace FoodYeah.Service.Impl
             throw new NotImplementedException();
         }
 
-        public void PayQuote(int quoteDetailId)
+        public void PayQuote(decimal amount, int quoteDetailId)
         {
             var qd = _context.QuoteDetails.Single(x => x.QuoteDetailsId == quoteDetailId);
+            var DeudaTotal = 0m;
             var loc = _context.LOCs.Single(x => x.LOCId == qd.LocId);
             if(qd.Quotes.Count > 0)
             {
-                if(loc.AvalibleLineOfCredit >= qd.Quotes.ElementAt(0))
+                if(amount == qd.Quotes.ElementAt(0))
                 {
-                    loc.AvalibleLineOfCredit -= qd.Quotes.ElementAt(0);
                     _transactionService.Create(new TransactionCreateDto
                     {
                         CustomerId = loc.CustomerId,
@@ -114,7 +113,49 @@ namespace FoodYeah.Service.Impl
                     });
                     qd.Quotes.RemoveAt(0);
                 }
-                else { return; }
+                else if(amount > qd.Quotes.ElementAt(0)) {
+                    
+                        foreach (decimal quote in qd.Quotes.ToList())
+                        {
+                        while (amount != 0)
+                        {
+                            if (amount > quote)
+                            {
+                                amount -= quote;
+                                qd.Quotes.RemoveAt(0);
+                            }
+                            else
+                            {
+                                var cuota = qd.Quotes.ElementAt(0);
+                                qd.Quotes.RemoveAt(0);
+                                cuota -= amount;
+                                qd.Quotes.Insert(0, cuota);
+                                qd.LastTotal -= amount;
+                                amount = 0;
+                            }
+                        }
+                        }
+                    }
+                else if(amount < qd.Quotes.ElementAt(0))
+                {
+                    var cuota = qd.Quotes.ElementAt(0);
+                    qd.Quotes.RemoveAt(0);
+                    cuota -= amount;
+                    qd.Quotes.Insert(0, cuota);
+                }
+                if (qd.Quotes.Count == 0)
+                {
+                    _context.QuoteDetails.Remove(qd);
+                }
+
+
+                else {
+                    qd.Debt = qd.Quotes.ElementAt(0);
+                    foreach (decimal quote in qd.Quotes.ToList())
+                        DeudaTotal += quote;
+                    qd.LastTotal = amount;
+                }
+                _context.SaveChanges();
             }
             else { return; }
         }

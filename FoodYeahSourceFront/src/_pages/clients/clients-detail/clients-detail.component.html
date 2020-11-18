@@ -42,28 +42,6 @@
         
 
     </div>
-    <div class="transactions">
-      <mat-divider></mat-divider>
-      <h1 style="margin-top: 10px;">Transacciones</h1>
-      <mat-table [dataSource]="dataTransactions" matSort>
-        <ng-container matColumnDef="Id" >
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.transactionId}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Descripcion">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
-            <mat-cell *matCellDef="let row">  {{row.description}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Estado">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row  *matRowDef="let row; columns: displayedColumns;">
-        </mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
 
     <div class="Debts" >
       <mat-divider></mat-divider>
@@ -89,9 +67,40 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Total </mat-header-cell>
         <mat-cell *matCellDef="let row"> S/{{row.lastTotal}}  </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+          <button mat-button color="primary"  (click)="openDialog(row)" >Pagar</button>
+      </mat-cell>
+  </ng-container>
         <mat-header-row *matHeaderRowDef="displayedQuoteColumns"></mat-header-row>
         <mat-row  *matRowDef="let row; columns: displayedQuoteColumns;">
         </mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
+
+    <div class="transactions">
+      <mat-divider></mat-divider>
+      <h1 style="margin-top: 10px;">Transacciones</h1>
+      <mat-table [dataSource]="dataTransactions" matSort>
+        <ng-container matColumnDef="Id" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.transactionId}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{row.description}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Estado">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row  *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+   

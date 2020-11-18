@@ -46,6 +46,7 @@ namespace FoodYeah.Dto
 
     public class SimpleQuoteDetailsDtos
     {
+        public int QuoteDetailsId { get; set; }
         public List<decimal> Quotes { get; set; }
         public int NumberQuotes { get; set; }
         public int Frecuency { get; set; }

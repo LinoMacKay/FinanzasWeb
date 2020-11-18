@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,9 +9,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/_model/customer';
 import { LOC } from 'src/_model/LOC';
+import { QuoteDetails } from 'src/_model/quoteDetails';
 import { CustomerService } from 'src/_service/customer.service';
 import { LocService } from 'src/_service/loc.service';
 import { LoginService } from 'src/_service/login.service';
+import { QuoteDetailService } from 'src/_service/quote-detail.service';
+import { ClientdetailpaydialogComponent } from './clientdetailpaydialog/clientdetailpaydialog.component';
 
 @Component({
   selector: 'app-clients-detail',
@@ -31,15 +35,17 @@ export class ClientsDetailComponent implements OnInit {
   dataTransactions: MatTableDataSource<any>;
   dataQuotes: MatTableDataSource<any>;
   frecuenciaString:string;
-  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt'];
+  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','actions'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private router:Router,private customerService:CustomerService, 
-    private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar,private loginService:LoginService) { }
+    private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar,private loginService:LoginService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
+
 
     this.readonly = true;
     this.User = this.loginService.getUser()
@@ -56,25 +62,20 @@ export class ClientsDetailComponent implements OnInit {
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.tea
     })
-    
+/////////////////////////////////////////////////////////////////////////////////////
     this.customerService.getById(this.id).subscribe((data:any)=>{
       this.dataTransactions = new MatTableDataSource<any>(data.transactions);
       
       this.dataTransactions.paginator = this.paginator;
       this.dataTransactions.sort = this.sort;
-      console.log(this.dataTransactions)
 
 /////////////////////////////////////////////////////////////////////////////////////
       this.dataQuotes = new MatTableDataSource<any>(data.loc.quoteDetails);
       this.dataQuotes.paginator = this.paginator;
       this.dataQuotes.sort = this.sort;
-      
-
-
-      console.log(this.dataQuotes)
-    })
-
+      })
   }
+
   ToggleToEdit(){
     this.readonly = false
   }
@@ -98,6 +99,33 @@ export class ClientsDetailComponent implements OnInit {
           });        })
       }
     )
+    }
+    openDialog(row) {
+      this.dialog.open(ClientdetailpaydialogComponent, {
+        width: '400px',
+        disableClose: false,
+        data: row}
+        ).afterClosed().subscribe(()=>{
+          this.customerService.getById(this.client.customerId).subscribe(
+            (data:any)=>{
+
+              this.dataTransactions = new MatTableDataSource<any>(data.transactions);
+              this.dataTransactions.paginator = this.paginator;
+              this.dataTransactions.sort = this.sort;
+
+/////////////////////////////////////////////////////////////////////////////////////
+              this.dataQuotes = new MatTableDataSource<any>(data.loc.quoteDetails);
+              this.dataQuotes.paginator = this.paginator;
+              this.dataQuotes.sort = this.sort;
+
+                    
+            }
+          )
+        })
+        
+          
+        
+    
     }
 
 }

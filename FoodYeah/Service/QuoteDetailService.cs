@@ -14,6 +14,6 @@ namespace FoodYeah.Service
         void Remove(int id);
         DataCollection<QuoteDetailsDto> GetAll(int page, int take);
         QuoteDetailsDto GetById(int id);
-        void PayQuote(int quoteDetailId);
+        void PayQuote( decimal amount, int quoteDetailId);
     }
 }
