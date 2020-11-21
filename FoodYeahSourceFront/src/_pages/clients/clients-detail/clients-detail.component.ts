@@ -41,6 +41,7 @@ export class ClientsDetailComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
+
   constructor(private router:Router,private customerService:CustomerService, 
     private route: ActivatedRoute,private locservice:LocService,private matSnackBar: MatSnackBar,private loginService:LoginService,
     private dialog: MatDialog) { }
@@ -52,31 +53,31 @@ export class ClientsDetailComponent implements OnInit {
     this.User = this.loginService.getUser()
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
-
-     
       // In a real app: dispatch action to load the details here.
     });
     this.customerService.getById(this.id).subscribe((data:Customer)=>{
-
       this.client = data
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.rate
       this.editableTypeRate = this.client.loc.typeRate
-
     })
 /////////////////////////////////////////////////////////////////////////////////////
     this.customerService.getById(this.id).subscribe((data:any)=>{
-      this.dataTransactions = new MatTableDataSource<any>(data.transactions);
-      
-      this.dataTransactions.paginator = this.paginator;
-      this.dataTransactions.sort = this.sort;
-
-/////////////////////////////////////////////////////////////////////////////////////
       this.dataQuotes = new MatTableDataSource<any>(data.loc.quoteDetails);
       this.dataQuotes.paginator = this.paginator;
       this.dataQuotes.sort = this.sort;
       })
+
+
+      this.customerService.getById(this.id).subscribe((data:any)=>{
+        this.dataTransactions = new MatTableDataSource<any>(data.transactions);
+        this.dataTransactions.paginator = this.paginator;
+        this.dataTransactions.sort = this.sort;
+        })
+
+
+    
   }
 
   ToggleToEdit(){

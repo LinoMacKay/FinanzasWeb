@@ -122,6 +122,7 @@ namespace FoodYeah.Service.Impl
             var qd = _context.QuoteDetails.Single(x => x.QuoteDetailsId == quoteDetailId);
             var DeudaTotal = 0m;
             var loc = _context.LOCs.Single(x => x.LOCId == qd.LocId);
+            loc.AvalibleLineOfCredit = loc.AvalibleLineOfCredit + amount;
             if(qd.Quotes.Count > 0)
             {
                 if(amount == qd.Quotes.ElementAt(0))
@@ -197,7 +198,9 @@ namespace FoodYeah.Service.Impl
                         DeudaTotal += quote;
                     qd.LastTotal = DeudaTotal;
                 }
+                
                 _context.SaveChanges();
+
             }
             else { return; }
         }
