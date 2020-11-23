@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  HOST_URL:'http://finanzas-api-kind-oribi-eo.mybluemix.net',
+  HOST_URL:'https://finanzas-api-kind-oribi-eo.mybluemix.net',
   TOKEN_AUTH_USERNAME:'foodyeahapp',
   TOKEN_AUTH_PASSWORD:'fy89codex',
   TOKEN_NAME:'access_token',
