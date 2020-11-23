@@ -35,12 +35,20 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Frecuencia de pago</mat-label>
-        <mat-select [(ngModel)]="stringFrecuency" required>
-            <mat-option *ngFor="let stringFrecuency of frecuencies" [value]="stringFrecuency" required>
-                {{stringFrecuency}}
+        <mat-label>Moneda de pago</mat-label>
+        <mat-select [(ngModel)]="stringCurrency" required>
+            <mat-option *ngFor="let stringCurrency of currencies" [value]="stringCurrency" required>
+                {{stringCurrency}}
             </mat-option>
         </mat-select>    </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Frecuencia de pago</mat-label>
+            <mat-select [(ngModel)]="stringFrecuency" required>
+                <mat-option *ngFor="let stringFrecuency of frecuencies" [value]="stringFrecuency" required>
+                    {{stringFrecuency}}
+                </mat-option>
+            </mat-select>    </mat-form-field>
 
     <!--imprimimos los products, con su id y su precio-->
     <br>

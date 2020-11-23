@@ -83,7 +83,7 @@ namespace FoodYeah.Service.Impl
             if (loc.AvalibleLineOfCredit > order.TotalPrice)
             {
                 loc.AvalibleLineOfCredit -= order.TotalPrice;
-                _quoteDetailService.Create(new CreateQuoteDetailsDto { Frecuency = entry.Frecuency, LocId = loc.LOCId, NumberQuotes = entry.NumberQuotes},order.TotalPrice);
+                _quoteDetailService.Create(new CreateQuoteDetailsDto { Frecuency = entry.Frecuency, LocId = loc.LOCId, NumberQuotes = entry.NumberQuotes,Currency = entry.Currency},order.TotalPrice);
                 DecreaseStock(order);
                 _transactionService.Create(new TransactionCreateDto { CustomerId = customer.CustomerId, Description="La orden ha sido creada correctamente",Status="Accepted"});
             }

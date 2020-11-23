@@ -13,7 +13,7 @@ namespace FoodYeah.Model
         public int NumberQuotes { get; set; }
         public List<decimal> Quotes { get; set; }
         public int Frecuency { get; set; }
-        public int PaymentType { get; set; }
+        public string Currency { get; set; }
         public decimal Debt { get; set; }
         public decimal InterestRate { get; set; }
         public decimal LastTotal { get; set; }

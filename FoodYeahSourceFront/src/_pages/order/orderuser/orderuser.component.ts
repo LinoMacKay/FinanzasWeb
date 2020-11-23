@@ -29,6 +29,7 @@ export class OrderuserComponent implements OnInit {
   Username: string;
   customer: Customer;
   order: Order;
+  stringCurrency:string;
   quotesNumber:number;
   customers: Array<Customer>;
   orderDetails: Array<OrderDetail>;
@@ -36,6 +37,7 @@ export class OrderuserComponent implements OnInit {
   product
   frecuency:number;
   stringFrecuency:string;
+  currencies=['Soles','Dolares']
   frecuencies = ["Semanal","Quincenal","Mensual"]
 
   productseleccionado: Product;
@@ -91,6 +93,7 @@ export class OrderuserComponent implements OnInit {
 
 
     QuoteDetails.Frecuency = this.frecuency;
+    QuoteDetails.Currency = this.stringCurrency;
     this.order.quoteDetails = QuoteDetails;
     
     console.log(this.order)

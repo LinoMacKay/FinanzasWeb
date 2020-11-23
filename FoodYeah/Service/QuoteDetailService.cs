@@ -14,6 +14,7 @@ namespace FoodYeah.Service
         void Update(int id, UpdateQuoteDetailsDto model);
         void Remove(int id);
         DataCollection<QuoteDetailsDto> GetAll(int page, int take);
+        public decimal CurrencyConverter(decimal price);
         QuoteDetailsDto GetById(int id);
         void PayQuote(decimal amount, int quoteDetailId);
         decimal ConvertToTea(TypeRate type, decimal rate);

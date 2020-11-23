@@ -60,17 +60,21 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Frecuencia </mat-header-cell>
             <mat-cell *matCellDef="let row">  {{row.frecuency}} dias</mat-cell>
         </ng-container>
+        <ng-container matColumnDef="currency">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Moneda </mat-header-cell>
+          <mat-cell *matCellDef="let row">  {{row.currency}} </mat-cell>
+      </ng-container>
         <ng-container matColumnDef="interestRate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Tasa </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.interestRate * 100}}%  </mat-cell>
         </ng-container>
         <ng-container matColumnDef="actualDebt">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Actual </mat-header-cell>
-          <mat-cell *matCellDef="let row"> S/{{row.debt}}  </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.debt}}  </mat-cell>
       </ng-container>
       <ng-container matColumnDef="totalDebt">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Total </mat-header-cell>
-        <mat-cell *matCellDef="let row"> S/{{row.lastTotal}}  </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.lastTotal}}  </mat-cell>
     </ng-container>
     <ng-container matColumnDef="firstPaidDay">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Primer dia de pago </mat-header-cell>

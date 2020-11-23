@@ -1,4 +1,5 @@
 ﻿using FoodYeah.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace FoodYeah.Dto
         public int NumberQuotes { get; set; }
         public List<decimal> Quotes { get; set; }
         public int Frecuency { get; set; }
+        public string Currency { get; set; }
         public int PaymentType { get; set; }
         public decimal Debt { get; set; }
         public decimal InterestRate { get; set; }
@@ -25,7 +27,7 @@ namespace FoodYeah.Dto
         public int LocId { get; set; }
         public int NumberQuotes { get; set; }
         public int Frecuency { get; set; }
-        public int PaymentType { get; set; }
+        public string Currency { get; set; }
     }
 
     public class UpdateQuoteDetailsDto
@@ -34,6 +36,7 @@ namespace FoodYeah.Dto
         public int NumberQuotes { get; set; }
         public List<decimal> Quotes { get; set; }
         public int Frecuency { get; set; }
+        public string Currency { get; set; }
         public int PaymentType { get; set; }
         public decimal InterestRate { get; set; }
         public decimal LastTotal { get; set; }
@@ -52,6 +55,7 @@ namespace FoodYeah.Dto
         public int Frecuency { get; set; }
         public decimal InterestRate { get; set; }
         public decimal Debt { get; set; }
+        public string Currency { get; set; }
         public decimal LastTotal { get; set; }
         public DateTime FirstPaidDay { get; set; }
         public DateTime LastPaidDay { get; set; }
@@ -59,4 +63,15 @@ namespace FoodYeah.Dto
 
     }
 
+    public class CurrencyDto
+    {
+        public string Base { get; set; }
+        public string Date { get; set; }
+        public Rates Rates { get; set; }
+    }
+
+    public class Rates
+    {
+        public string PEN { get; set; }
+    }
 }

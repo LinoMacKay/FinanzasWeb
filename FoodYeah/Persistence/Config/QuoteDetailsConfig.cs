@@ -15,7 +15,6 @@ namespace FoodYeah.Persistence.Config
             entityBuilder.HasKey(x => x.QuoteDetailsId);
             entityBuilder.Property(x => x.NumberQuotes).IsRequired();
             entityBuilder.Property(x => x.Frecuency).IsRequired();
-            entityBuilder.Property(x => x.PaymentType).IsRequired();
             entityBuilder.Property(x => x.Debt).IsRequired();
             entityBuilder.Property(x => x.InterestRate).IsRequired();
             entityBuilder.Property(x => x.LastTotal).IsRequired();

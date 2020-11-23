@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NcvF4z1+n6R/ChqlKpTXZ7/HdQj75hu/obc0kgjbh/7BrDDHp/csbkY+gDTOgRYG2axJZ5qcLcZVmTCxvAaqGQ==",
+  "dgSpecHash": "bdzIIqbCCVo5rjhwz+3Eqsh8mjCE4B/7f+vqykQHJYJxn80sZgn9sepzTR9H9eAh14B+4MOScPcmgNavu6OwGA==",
   "success": true,
   "projectFilePath": "D:\\Cursos\\Finanzas\\FoodYeah\\FoodYeah.csproj",
   "expectedPackageFiles": [
@@ -81,6 +81,7 @@
     "C:\\Users\\ACER\\.nuget\\packages\\npgsql\\4.1.3\\npgsql.4.1.3.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\3.1.3\\npgsql.entityframeworkcore.postgresql.3.1.3.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
+    "C:\\Users\\ACER\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

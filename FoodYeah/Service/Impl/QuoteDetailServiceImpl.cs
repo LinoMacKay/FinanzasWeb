@@ -4,6 +4,9 @@ using FoodYeah.Dto;
 using FoodYeah.Model;
 using FoodYeah.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +44,37 @@ namespace FoodYeah.Service.Impl
                 return rate;
             
         }
+
+        public decimal CurrencyConverter(decimal price)
+        {
+
+            var client = new RestClient("https://api.currencyfreaks.com/latest?apikey=da06e3bb1f1d4da08b8e5cde85590ed8&symbols=PEN,USD'");
+
+            client.Timeout = -1;
+
+            var request = new RestRequest(Method.GET);
+
+            IRestResponse response = client.Execute(request);
+
+            var values = JsonConvert.DeserializeObject<CurrencyDto>(response.Content);
+            decimal change = Convert.ToDecimal(values.Rates.PEN);
+
+            decimal valuechange = price / change;
+
+            return valuechange;
+        }
+
+
         public QuoteDetailsDto Create(CreateQuoteDetailsDto model,decimal totalPrice)
         {
-            
+            var price =new decimal();
+            if (model.Currency == "Soles")
+                 price = totalPrice;
+            else
+            {
+                price = CurrencyConverter(totalPrice);
+            }
+
             decimal tasa = (_context.LOCs.Single(x => x.LOCId == model.LocId).Rate / 100);
             var TypeRate = (_context.LOCs.Single(x => x.LOCId == model.LocId).TypeRate);
             decimal newTasa = ConvertToTea(TypeRate, tasa);
@@ -54,7 +85,7 @@ namespace FoodYeah.Service.Impl
             decimal tasaConvertida = Convert.ToDecimal(Math.Pow(numerobase, Decimal.ToDouble(potencia)) - 1);
             
             decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasaConvertida)), model.NumberQuotes));
-            decimal quote = totalPrice * ((tasaConvertida * e)/(e - 1));
+            decimal quote = price * ((tasaConvertida * e)/(e - 1));
             List<decimal> cuotas = new List<decimal>();
             decimal Total = 0m;
             for(int i = 0; i < model.NumberQuotes; i++)
@@ -67,18 +98,19 @@ namespace FoodYeah.Service.Impl
 
 
             var primerDiaDePago = DateTime.Today;
+            var ultimoDiaDePago = primerDiaDePago.AddDays(model.Frecuency);
             var entry = new QuoteDetail
             {
                 NumberQuotes = model.NumberQuotes,
                 Frecuency = model.Frecuency,
-                PaymentType = model.PaymentType,
                 InterestRate = tasa,
+                Currency = model.Currency,
                 LocId = model.LocId,
                 Quotes = cuotas,
                 Debt = cuotas[0],
                 LastTotal = Total,
                 FirstPaidDay = primerDiaDePago,
-                LastPaidDay = primerDiaDePago.AddDays(model.Frecuency)
+                LastPaidDay = ultimoDiaDePago
             };
             
             _context.QuoteDetails.Add(entry);
