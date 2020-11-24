@@ -69,9 +69,17 @@ namespace FoodYeah.Service.Impl
 
 
             var target = _context.LOCs.Single(x => x.LOCId == id);
-            target.Rate = model.Rate;
-            target.TotalLineOfCredit = model.TotalLineOfCredit;
-            target.TypeRate = model.TypeRate;
+            var customer = _context.Customers.Single(x=>x.CustomerId == target.CustomerId);
+
+            List<Order> Orders = _context.Orders.Where(x => x.CustomerId == customer.CustomerId).ToList();
+            if (Orders.Count == 0)
+            {
+
+                target.Rate = model.Rate;
+                target.TotalLineOfCredit = model.TotalLineOfCredit;
+                target.TypeRate = model.TypeRate;
+                target.AvalibleLineOfCredit = model.TotalLineOfCredit;
+            }
             _context.SaveChanges();
         }
     }
