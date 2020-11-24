@@ -13,7 +13,7 @@ namespace FoodYeah.Dto
         public LOC Loc { get; set; }
         public int LocId { get; set; }
         public int NumberQuotes { get; set; }
-        public List<decimal> Quotes { get; set; }
+        public List<Quote> Quotes { get; set; }
         public int Frecuency { get; set; }
         public string Currency { get; set; }
         public int PaymentType { get; set; }
@@ -34,7 +34,7 @@ namespace FoodYeah.Dto
     {
         public int QuoteDetailsId { get; set; }
         public int NumberQuotes { get; set; }
-        public List<decimal> Quotes { get; set; }
+        public List<Quote> Quotes { get; set; }
         public int Frecuency { get; set; }
         public string Currency { get; set; }
         public int PaymentType { get; set; }
@@ -50,7 +50,7 @@ namespace FoodYeah.Dto
     public class SimpleQuoteDetailsDtos
     {
         public int QuoteDetailsId { get; set; }
-        public List<decimal> Quotes { get; set; }
+        public List<QuoteDto> Quotes { get; set; }
         public int NumberQuotes { get; set; }
         public int Frecuency { get; set; }
         public decimal InterestRate { get; set; }

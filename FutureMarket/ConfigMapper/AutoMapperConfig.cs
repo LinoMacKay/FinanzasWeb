@@ -42,7 +42,8 @@ namespace FoodYeah.ConfigMapper
             CreateMap<QuoteDetail, QuoteDetailsDto>();
             CreateMap<DataCollection<QuoteDetail>, DataCollection<QuoteDetailsDto>>();
 
-
+            CreateMap<Quote, QuoteDto>();
+            CreateMap<DataCollection<Quote>, DataCollection<QuoteDto>>();
 
 
             //Simple Dtos

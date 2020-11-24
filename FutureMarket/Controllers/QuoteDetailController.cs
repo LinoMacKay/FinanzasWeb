@@ -54,10 +54,13 @@ namespace FoodYeah.Controllers
         }
 
         [HttpPut("pay/{id}/{amount}")]
-        public ActionResult Pay(int id,decimal amount) // Probando si con el update se podria pagar
+        public ActionResult Pay(int id,decimal amount) 
         {
             _quoteDetailService.PayQuote(amount,id);
             return NoContent();
         }
+
+       
+
     }
 }

@@ -110,6 +110,7 @@ namespace FoodYeah.Service
                  .Include(x => x.Customer_Category)
                  .Include(x=>x.LOC)
                  .ThenInclude(x => x.QuoteDetails)
+                 .ThenInclude(x=>x.Quotes)
                  .Include(x => x.Transactions)
                  .Single(x => x.CustomerId == id)
             );

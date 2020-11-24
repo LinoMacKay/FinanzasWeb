@@ -26,15 +26,18 @@
             </mat-form-field> </h3></h2></li>         
           </ul>  
           <ul id="details">
-            <li><h2>Tasa:<h3> <mat-form-field appearance="outline">
+            <li><h2>Tasa (Porcentaje):<h3> <mat-form-field appearance="outline">
                 <input matInput   [(ngModel)]="editableTea" readonly [readOnly]="readonly"  >
             </mat-form-field></h3> </h2></li> 
+
             <li><h2>Tipo de tasa:<h3> <mat-form-field appearance="outline">
-              <input matInput   [(ngModel)]="editableTypeRate" readonly [readOnly]="readonly"  >
-          </mat-form-field></h3> </h2>
-        <p style="font-weight:'bold'">1 TEA | 2 TNA | 3 TSA</p>
-        </li>
-            <li><button mat-fab color="warn" (click)="ToggleToEdit()"  *ngIf="User != 'USER'">
+              <mat-select [(ngModel)]="tasa" required [disabled]="readonly">
+                <mat-option *ngFor="let tasa of tasas" [value]="tasa" required>
+                    {{tasa}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field></h3> </h2></li> 
+            <li><button  mat-button color="warn" (click)="ToggleToEdit()"  *ngIf="User != 'USER'"> Editar Cliente
           <mat-icon>create</mat-icon>
         </button>
         <button style="margin-left:5px" mat-fab color="primary" (click)="Save()" *ngIf="!readonly">
@@ -76,14 +79,6 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Deuda Total </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.lastTotal}}  </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="firstPaidDay">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Primer dia de pago </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.firstPaidDay}}  </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="lastPaidDay">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Vencimiento de la cuota </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.firstPaidDay}}  </mat-cell>
-</ng-container>
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">

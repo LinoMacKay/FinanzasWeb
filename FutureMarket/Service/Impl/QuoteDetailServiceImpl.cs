@@ -86,19 +86,22 @@ namespace FoodYeah.Service.Impl
             
             decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasaConvertida)), model.NumberQuotes));
             decimal quote = price * ((tasaConvertida * e)/(e - 1));
-            List<decimal> cuotas = new List<decimal>();
+            List<Quote> cuotas = new List<Quote>();
             decimal Total = 0m;
-            for(int i = 0; i < model.NumberQuotes; i++)
+            var primerDiaDePago = DateTime.Today;
+            for (int i = 0; i < model.NumberQuotes; i++)
             {
+               
+                var ultimoDiaDePago = primerDiaDePago.AddDays(model.Frecuency);
                 quote = Math.Round(quote, 1);
-                cuotas.Add(quote);
+                cuotas.Add(new Quote { Value = quote, FirstPaidDay = primerDiaDePago, LastPaidDay = ultimoDiaDePago });
+                primerDiaDePago = ultimoDiaDePago.AddDays(model.Frecuency);
                 Total += quote;
                 
             }
 
 
-            var primerDiaDePago = DateTime.Today;
-            var ultimoDiaDePago = primerDiaDePago.AddDays(model.Frecuency);
+           
             var entry = new QuoteDetail
             {
                 NumberQuotes = model.NumberQuotes,
@@ -107,10 +110,8 @@ namespace FoodYeah.Service.Impl
                 Currency = model.Currency,
                 LocId = model.LocId,
                 Quotes = cuotas,
-                Debt = cuotas[0],
+                Debt = cuotas[0].Value,
                 LastTotal = Total,
-                FirstPaidDay = primerDiaDePago,
-                LastPaidDay = ultimoDiaDePago
             };
             
             _context.QuoteDetails.Add(entry);
@@ -132,6 +133,7 @@ namespace FoodYeah.Service.Impl
             return _mapper.Map<DataCollection<QuoteDetailsDto>>(
                  _context.QuoteDetails.OrderByDescending(x => x.QuoteDetailsId)
                                .Include(x => x.Loc)
+                               .Include(x=>x.Quotes)
                               .AsQueryable()
                               .Paged(page, take)
             );
@@ -157,7 +159,7 @@ namespace FoodYeah.Service.Impl
             loc.AvalibleLineOfCredit = loc.AvalibleLineOfCredit + amount;
             if(qd.Quotes.Count > 0)
             {
-                if(amount == qd.Quotes.ElementAt(0))
+                if(amount == qd.Quotes.ElementAt(0).Value)
                 {
                     
                     _transactionService.Create(new TransactionCreateDto
@@ -168,12 +170,12 @@ namespace FoodYeah.Service.Impl
                     });
                     qd.Quotes.RemoveAt(0);
                 }
-                else if(amount > qd.Quotes.ElementAt(0)) {
+                else if(amount > qd.Quotes.ElementAt(0).Value) {
                     
-                        foreach (decimal quote in qd.Quotes.ToList())
+                        foreach (Quote quote in qd.Quotes.ToList())
                         {
                         
-                            if (amount > quote)
+                            if (amount > quote.Value)
                             {
                                 _transactionService.Create(new TransactionCreateDto
                                 {
@@ -181,7 +183,7 @@ namespace FoodYeah.Service.Impl
                                     Status = "Accepted ",
                                     Description = "Se ha pagado la cuota total con el valor de " + quote.ToString()
                                 });
-                                amount -= quote;
+                                amount -= quote.Value;
                                 qd.Quotes.RemoveAt(0);
 
                             }
@@ -195,7 +197,7 @@ namespace FoodYeah.Service.Impl
                                 });
                                 var cuota = qd.Quotes.ElementAt(0);
                                 qd.Quotes.RemoveAt(0);
-                                cuota -= amount;
+                                cuota.Value -= amount;
                                 qd.Quotes.Insert(0, cuota);
                                 qd.LastTotal -= amount;
                                 amount = 0;
@@ -204,7 +206,7 @@ namespace FoodYeah.Service.Impl
                     }
                         
                     }
-                else if(amount < qd.Quotes.ElementAt(0))
+                else if(amount < qd.Quotes.ElementAt(0).Value)
                 {
                     _transactionService.Create(new TransactionCreateDto
                     {
@@ -215,7 +217,7 @@ namespace FoodYeah.Service.Impl
 
                     var cuota = qd.Quotes.ElementAt(0);
                     qd.Quotes.RemoveAt(0);
-                    cuota -= amount;
+                    cuota.Value -= amount;
                     qd.Quotes.Insert(0, cuota);
                 }
                 if (qd.Quotes.Count == 0)
@@ -225,9 +227,9 @@ namespace FoodYeah.Service.Impl
 
 
                 else {
-                    qd.Debt = qd.Quotes.ElementAt(0);
-                    foreach (decimal quote in qd.Quotes.ToList())
-                        DeudaTotal += quote;
+                    qd.Debt = qd.Quotes.ElementAt(0).Value;
+                    foreach (Quote quote in qd.Quotes.ToList())
+                        DeudaTotal += quote.Value;
                     qd.LastTotal = DeudaTotal;
                 }
                 

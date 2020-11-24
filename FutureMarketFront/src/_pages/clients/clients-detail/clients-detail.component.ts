@@ -36,8 +36,11 @@ export class ClientsDetailComponent implements OnInit {
   dataQuotes: MatTableDataSource<any>;
   frecuenciaString:string;
   editableTypeRate:number;
-  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','firstPaidDay','lastPaidDay','currency','actions'];
+  oldrate:number;
+  displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','currency','actions'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
+  tasas:string[]=['Tasa Nominal Anual','Tasa Simple Anual','Tasa Efectiva Anual']
+  tasa:string;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -48,6 +51,8 @@ export class ClientsDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+   
 
     this.readonly = true;
     this.User = this.loginService.getUser()
@@ -60,7 +65,16 @@ export class ClientsDetailComponent implements OnInit {
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.rate
+      this.oldrate = this.client.loc.rate
       this.editableTypeRate = this.client.loc.typeRate
+
+      if(this.editableTypeRate == 3)
+      this.tasa = "Tasa Simple Anual"
+      if(this.editableTypeRate == 2)
+      this.tasa = "Tasa Nominal Anual"
+      if(this.editableTypeRate == 1)
+      this.tasa = "Tasa Efectiva Anual"
+
     })
 /////////////////////////////////////////////////////////////////////////////////////
     this.customerService.getById(this.id).subscribe((data:any)=>{
@@ -85,13 +99,26 @@ export class ClientsDetailComponent implements OnInit {
   }
   Save(){
     this.readonly = true
+    
     let locId = this.client.loc.locId;
     let Loc = new LOC(); 
     Loc.rate = this.editableTea
     Loc.totalLineOfCredit = this.editableLineOfCredit
+
+    if(this.tasa == "TSA")
+    this.editableTypeRate = 3
+
+    if(this.tasa == "TNA")
+    this.editableTypeRate = 2
+
+    if(this.tasa == "TEA")
+    this.editableTypeRate = 1
+
+
+
     Loc.typeRate = this.editableTypeRate
     
-    console.log(Loc)
+    if(this.editableTea > 0 ){
     this.locservice.updateLOC(locId,Loc).subscribe(
       data=>{
         this.customerService.getById(this.id).subscribe(data=>{
@@ -106,9 +133,16 @@ export class ClientsDetailComponent implements OnInit {
       }
     )
     }
+    else{
+      this.editableTea = this.oldrate
+      this.matSnackBar.open('La tasa debe ser mayor a 0','Cerrar',{
+        duration:2000
+      })
+    }
+    }
     openDialog(row) {
       this.dialog.open(ClientdetailpaydialogComponent, {
-        width: '400px',
+        width: '90%',
         disableClose: false,
         data: row}
         ).afterClosed().subscribe(()=>{

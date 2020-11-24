@@ -30,6 +30,7 @@ namespace FoodYeah.Persistence
         public DbSet<Product_Category> Product_Categories { get; set; }
         public DbSet<QuoteDetail> QuoteDetails { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer_Category> Customer_Categories { get; set; }
@@ -50,6 +51,8 @@ namespace FoodYeah.Persistence
             new ApplicationUserConfig(builder.Entity<ApplicationUser>());
             new ApplicationRoleConfig(builder.Entity<ApplicationRole>());
             new LOCConfig(builder.Entity<LOC>());
+            new QuoteConfig(builder.Entity<Quote>());
+
 
         }
     }

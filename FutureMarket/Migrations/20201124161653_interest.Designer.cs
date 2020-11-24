@@ -3,15 +3,17 @@ using System;
 using FoodYeah.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FoodYeah.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201124161653_interest")]
+    partial class interest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,15 +157,15 @@ namespace FoodYeah.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17d55e8a-3904-45f2-b5aa-6bcb42a5dd17",
-                            ConcurrencyStamp = "4fe61d2a-fc6c-4465-b561-3712a2c2ba24",
+                            Id = "78e36cd8-a5dc-47aa-96d8-d10ede5dec94",
+                            ConcurrencyStamp = "3d91c43a-b580-4441-98c9-97392dc594ec",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c7891fa9-9797-4b2c-8994-713034ad7a7a",
-                            ConcurrencyStamp = "c79d4b04-61a0-4aea-98a8-93673ce30d16",
+                            Id = "d734795f-d50c-41c8-81f3-c408b16dedb4",
+                            ConcurrencyStamp = "68845d77-0bcd-4abf-80bd-d22789de30dd",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -432,7 +434,7 @@ namespace FoodYeah.Migrations
 
                     b.HasIndex("QuoteDetailsId");
 
-                    b.ToTable("Quotes");
+                    b.ToTable("Quote");
                 });
 
             modelBuilder.Entity("FoodYeah.Model.QuoteDetail", b =>
@@ -665,7 +667,7 @@ namespace FoodYeah.Migrations
 
             modelBuilder.Entity("FoodYeah.Model.Quote", b =>
                 {
-                    b.HasOne("FoodYeah.Model.QuoteDetail", "QuoteDetail")
+                    b.HasOne("FoodYeah.Model.QuoteDetail", null)
                         .WithMany("Quotes")
                         .HasForeignKey("QuoteDetailsId");
                 });

@@ -3,15 +3,17 @@ using System;
 using FoodYeah.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FoodYeah.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201124161319_cuotas")]
+    partial class cuotas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,15 +157,15 @@ namespace FoodYeah.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17d55e8a-3904-45f2-b5aa-6bcb42a5dd17",
-                            ConcurrencyStamp = "4fe61d2a-fc6c-4465-b561-3712a2c2ba24",
+                            Id = "df4578a4-677e-46e5-8ee1-cbae08160a8f",
+                            ConcurrencyStamp = "ea6c366a-0a18-4459-ba9c-9b303df5e1dc",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c7891fa9-9797-4b2c-8994-713034ad7a7a",
-                            ConcurrencyStamp = "c79d4b04-61a0-4aea-98a8-93673ce30d16",
+                            Id = "2c1427be-09da-4477-8df5-21d114a28f06",
+                            ConcurrencyStamp = "b18bd37e-1b15-4a2c-8d14-f6882e1c43bb",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -416,9 +418,6 @@ namespace FoodYeah.Migrations
                     b.Property<DateTime>("FirstPaidDay")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<decimal>("Interest")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("LastPaidDay")
                         .HasColumnType("timestamp without time zone");
 
@@ -432,7 +431,7 @@ namespace FoodYeah.Migrations
 
                     b.HasIndex("QuoteDetailsId");
 
-                    b.ToTable("Quotes");
+                    b.ToTable("Quote");
                 });
 
             modelBuilder.Entity("FoodYeah.Model.QuoteDetail", b =>
@@ -665,7 +664,7 @@ namespace FoodYeah.Migrations
 
             modelBuilder.Entity("FoodYeah.Model.Quote", b =>
                 {
-                    b.HasOne("FoodYeah.Model.QuoteDetail", "QuoteDetail")
+                    b.HasOne("FoodYeah.Model.QuoteDetail", null)
                         .WithMany("Quotes")
                         .HasForeignKey("QuoteDetailsId");
                 });
