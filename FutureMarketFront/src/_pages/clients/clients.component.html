@@ -24,7 +24,7 @@
         <ng-container matColumnDef="acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <button mat-button color="primary"  (click)="EditClient(row)" >Ver Perfil de cliente</button>
+                <button mat-button color="primary"  (click)="EditClient(row)"  matTooltip="Edite todos los valores del cliente">Ver Perfil de cliente</button>
                 <button mat-button color="accent" (click)="delete(row)">Eliminar</button>
             </mat-cell>
         </ng-container>

@@ -33,6 +33,6 @@
 <div *ngIf="User == 'USER'"  >
 <app-productlist></app-productlist>
 </div>
-<button mat-button color="accent" *ngIf="User != 'USER'"   (click)="openDialog()" style="float: right; margin-right: 20px"> Crear Categoria
+<button mat-button color="accent" *ngIf="User != 'USER'"   (click)="openDialog()" style="float: right; margin-right: 20px" matTooltip="Crear una categoria"> Crear Categoria
     <mat-icon>create</mat-icon>
 </button>

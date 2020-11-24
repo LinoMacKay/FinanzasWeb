@@ -20,27 +20,36 @@
             <li><h2>Apellido del cliente: <h3> {{client.customerLastName}} </h3></h2></li>            
           </ul>  
           <ul id="details">
-            <li><h2>Linea de credito disponible: <h3>{{client.loc.avalibleLineOfCredit}} </h3></h2></li>
+            <li><h2>Linea de credito disponible: <h3>{{client.loc.avalibleLineOfCredit}} <button style="margin-left:10px"  matTooltip="Dinero disponible a usar" mat-mini-fab color="primary" >
+              <mat-icon>help</mat-icon>
+            </button> </h3> </h2></li>
             <li><h2>Linea de credito total: <h3> <mat-form-field appearance="outline">
                 <input matInput [(ngModel)]="editableLineOfCredit" readonly [readOnly]="readonly">
-            </mat-form-field> </h3></h2></li>         
+            </mat-form-field><button style="margin-left:10px" matTooltip="Dinero máximo disponible en la linea de crédito" mat-mini-fab color="primary" >
+              <mat-icon>help</mat-icon>
+            </button> </h3></h2></li>         
           </ul>  
           <ul id="details">
-            <li><h2>Tasa (Porcentaje):<h3> <mat-form-field appearance="outline">
-                <input matInput   [(ngModel)]="editableTea" readonly [readOnly]="readonly"  >
-            </mat-form-field></h3> </h2></li> 
+            <li><h2>Tasa (Porcentaje):<h3>  <mat-form-field appearance="outline">
+                <input matInput   [(ngModel)]="editableTea" readonly [readOnly]="readonly"  > 
+                
+            </mat-form-field><button style="margin-left:10px"  matTooltip="Valor de la tasa que será aplicada" mat-mini-fab color="primary" >
+              <mat-icon>help</mat-icon>
+            </button></h3> </h2></li> 
 
-            <li><h2>Tipo de tasa:<h3> <mat-form-field appearance="outline">
-              <mat-select [(ngModel)]="tasa" required [disabled]="readonly">
+            <li><h2 >Tipo de tasa:<h3> <mat-form-field appearance="outline">
+              <mat-select   [(ngModel)]="tasa" required [disabled]="readonly">
                 <mat-option *ngFor="let tasa of tasas" [value]="tasa" required>
                     {{tasa}}
                 </mat-option>
             </mat-select>
-          </mat-form-field></h3> </h2></li> 
-            <li><button  mat-button color="warn" (click)="ToggleToEdit()"  *ngIf="User != 'USER'"> Editar Cliente
+          </mat-form-field><button style="margin-left:10px" matTooltip="Tasa en la cual los intereses serán aplicados" mat-mini-fab color="primary" >
+            <mat-icon>help</mat-icon>
+          </button></h3> </h2></li> 
+            <li><button  mat-button color="warn" (click)="ToggleToEdit()"  matTooltip="Clickear para poder editar"  *ngIf="User != 'USER'"> Editar Cliente
           <mat-icon>create</mat-icon>
         </button>
-        <button style="margin-left:5px" mat-fab color="primary" (click)="Save()" *ngIf="!readonly">
+        <button style="margin-left:5px" mat-fab color="primary" (click)="Save()" matTooltip="Guardar los valores" *ngIf="!readonly">
             <mat-icon>check</mat-icon>
           </button>
 
@@ -82,7 +91,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">
-          <button mat-button color="primary"  (click)="openDialog(row)" *ngIf="User != 'USER'" >Pagar</button>
+          <button mat-button color="primary"  (click)="openDialog(row)" *ngIf="User != 'USER'"  matTooltip="Clickear para pagar la cuota" >Pagar</button>
       </mat-cell>
   </ng-container>
         <mat-header-row *matHeaderRowDef="displayedQuoteColumns"></mat-header-row>

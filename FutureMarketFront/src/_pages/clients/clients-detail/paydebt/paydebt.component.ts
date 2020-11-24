@@ -41,6 +41,6 @@ export class PaydebtComponent implements OnInit {
 
   }
   CloseDialog(){
-
+    this.dialogRef.close();
   }
 }

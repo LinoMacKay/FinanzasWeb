@@ -41,6 +41,6 @@
 <div *ngIf="User == 'USER'"  >
 <app-productlist></app-productlist>
 </div>
-<button mat-button color="accent" *ngIf="User != 'USER'"   (click)="openDialog()" style="float: right; margin-right: 20px"> Crear Producto
+<button mat-button color="accent" *ngIf="User != 'USER'"   (click)="openDialog()" style="float: right; margin-right: 20px" matTooltip="Crear un producto"> Crear Producto
     <mat-icon>create</mat-icon>
 </button>

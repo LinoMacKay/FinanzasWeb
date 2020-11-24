@@ -7,7 +7,9 @@
     overflow: auto;
     max-height: 500px;
   }
-  
+  ::ng-deep .mat-tooltip {
+    font-size:20px!important;
+}
 .register{
   display: grid;
   place-items: center;

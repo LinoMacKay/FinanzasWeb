@@ -31,6 +31,7 @@ import { OrderuserbuyComponent } from 'src/_pages/order/orderuserbuy/orderuserbu
 import { ClientsComponent } from 'src/_pages/clients/clients.component';
 import { ClientsDetailComponent } from 'src/_pages/clients/clients-detail/clients-detail.component';
 import {MatInputModule} from '@angular/material/input';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ClientdetailpaydialogComponent } from 'src/_pages/clients/clients-detail/clientdetailpaydialog/clientdetailpaydialog.component';
@@ -64,6 +65,7 @@ import { PaydebtComponent } from 'src/_pages/clients/clients-detail/paydebt/payd
     AppRoutingModule,
     MaterialModule,
     HttpClientModule,
+    MatTooltipModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,

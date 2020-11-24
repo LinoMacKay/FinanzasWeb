@@ -24,3 +24,6 @@ mat-card {
   mat-form-field {
     display: block;
   }
+  ::ng-deep .mat-tooltip {
+    font-size:20px!important;
+}
