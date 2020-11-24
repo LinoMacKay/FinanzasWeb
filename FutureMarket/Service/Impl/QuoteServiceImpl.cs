@@ -2,6 +2,9 @@
 using FoodYeah.Dto;
 using FoodYeah.Model;
 using FoodYeah.Persistence;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +18,7 @@ namespace FoodYeah.Service.Impl
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly TransactionService _transactionService;
+        
 
         public QuoteServiceImpl(ApplicationDbContext context,
             IMapper mapper,TransactionService transactionService)
@@ -24,6 +28,42 @@ namespace FoodYeah.Service.Impl
             _transactionService = transactionService;
         }
 
+        public decimal CurrencyConverterDollars(decimal price)
+        {
+
+            var client = new RestClient("https://api.currencyfreaks.com/latest?apikey=da06e3bb1f1d4da08b8e5cde85590ed8&symbols=PEN,USD'");
+
+            client.Timeout = -1;
+
+            var request = new RestRequest(Method.GET);
+
+            IRestResponse response = client.Execute(request);
+
+            var values = JsonConvert.DeserializeObject<CurrencyDto>(response.Content);
+            decimal change = Convert.ToDecimal(values.Rates.PEN);
+
+            decimal valuechange = price / change;
+
+            return valuechange;
+        }
+        public decimal CurrencyConverterPen(decimal price)
+        {
+
+            var client = new RestClient("https://api.currencyfreaks.com/latest?apikey=da06e3bb1f1d4da08b8e5cde85590ed8&symbols=PEN,USD'");
+
+            client.Timeout = -1;
+
+            var request = new RestRequest(Method.GET);
+
+            IRestResponse response = client.Execute(request);
+
+            var values = JsonConvert.DeserializeObject<CurrencyDto>(response.Content);
+            decimal change = Convert.ToDecimal(values.Rates.PEN);
+
+            decimal valuechange = price * change;
+
+            return valuechange;
+        }
         public void Create(CreateQuoteDto model)
         {
             var entry = new Quote
@@ -57,6 +97,17 @@ namespace FoodYeah.Service.Impl
             var quote = _context.Quotes.Single(x => x.QuoteId == id);
             var quoteDetail = _context.QuoteDetails.Single(x=>x.QuoteDetailsId == quote.QuoteDetailsId);
             var Loc = _context.LOCs.Single(x => x.LOCId == quoteDetail.LocId);
+
+            if (quoteDetail.Currency != "Soles")
+            {
+                var newamount = CurrencyConverterPen(amount);
+                Loc.AvalibleLineOfCredit += newamount;
+
+            }
+            else
+            {
+                Loc.AvalibleLineOfCredit += amount;
+            }
             var client = _context.Customers.Single(x => x.CustomerId == Loc.CustomerId);
             if( amount < quote.Value + quote.Interest)
             {

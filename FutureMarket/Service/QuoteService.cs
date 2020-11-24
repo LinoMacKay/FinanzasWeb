@@ -13,6 +13,9 @@ namespace FoodYeah.Service
         void Remove(int id);
         QuoteDto GetAllQuotes();
         void PayQuote(int id,decimal amount);
+        public decimal CurrencyConverterDollars(decimal price);
+        public decimal CurrencyConverterPen(decimal price);
+
         List<QuoteDto> GetByQuoteDetailId(int id);
         List<QuoteDto> UpdateInterest(int id);
     }
