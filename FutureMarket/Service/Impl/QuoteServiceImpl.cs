@@ -132,16 +132,19 @@ namespace FoodYeah.Service.Impl
 
             List<Quote> cuotas = _context.Quotes.Where(x => x.QuoteDetailsId == quoteDetail.QuoteDetailsId).ToList();
 
-
-            quoteDetail.Debt = cuotas.ElementAt(0).Value;
-            foreach (Quote cuota in cuotas)
-                DeudaTotal += cuota.Value;
-            quoteDetail.LastTotal = DeudaTotal;
-
-            if(cuotas.Count == 0)
+            if (cuotas.Count == 0)
             {
                 _quoteDetailService.Remove(quoteDetail.QuoteDetailsId);
             }
+            else
+            {
+
+                quoteDetail.Debt = cuotas.ElementAt(0).Value;
+                foreach (Quote cuota in cuotas)
+                    DeudaTotal += cuota.Value;
+                quoteDetail.LastTotal = DeudaTotal;
+            }
+           
 
             _context.SaveChanges();
         }
@@ -156,35 +159,48 @@ namespace FoodYeah.Service.Impl
         public List<QuoteDto> UpdateInterest(int id)
         {
             var debts = _context.Quotes.Where(x => x.QuoteDetailsId == id);
-            var quotedetail = _context.QuoteDetails.Single(x => x.QuoteDetailsId == id);
-            DateTime fechaHoy = DateTime.Now;
 
-            foreach (Quote debt in debts)
+            if (debts.Count() > 0)
             {
-                decimal Diferencia = Convert.ToDecimal(Math.Round((fechaHoy - debt.LastPaidDay).TotalDays));
-                if (Diferencia > 0)
-                {
-                    var tasa = quotedetail.InterestRate;
-                    var valor = debt.Value;
-                    var diastasa = quotedetail.Frecuency;
-                    
-                    decimal interestasa = Convert.ToDecimal((Math.Pow(Decimal.ToDouble(1+tasa), Decimal.ToDouble(Diferencia) / diastasa))) -1;
-                    decimal interes = debt.Value * interestasa;
-                    
-                    
 
-                    debt.Interest = Math.Round(interes,1, MidpointRounding.AwayFromZero);
+                var quotedetail = _context.QuoteDetails.Single(x => x.QuoteDetailsId == id);
 
-                }
-                else
+                DateTime fechaHoy = DateTime.Now;
+
+                foreach (Quote debt in debts)
                 {
-                    debt.Interest = 0;
+                    decimal Diferencia = Convert.ToDecimal(Math.Round((fechaHoy - debt.LastPaidDay).TotalDays));
+                    if (Diferencia > 0)
+                    {
+                        var tasa = quotedetail.InterestRate;
+                        var valor = debt.Value;
+                        var diastasa = quotedetail.Frecuency;
+
+                        decimal interestasa = Convert.ToDecimal((Math.Pow(Decimal.ToDouble(1 + tasa), Decimal.ToDouble(Diferencia) / diastasa))) - 1;
+                        decimal interes = debt.Value * interestasa;
+
+
+
+                        debt.Interest = Math.Round(interes, 1, MidpointRounding.AwayFromZero);
+
+                    }
+                    else
+                    {
+                        debt.Interest = 0;
+                    }
                 }
+
+                _context.SaveChanges();
+
+                return _mapper.Map<List<QuoteDto>>(
+                    _context.Quotes.Where(x => x.QuoteDetailsId == id));
+
             }
-            _context.SaveChanges();
-
-            return _mapper.Map<List<QuoteDto>>(
-                _context.Quotes.Where(x => x.QuoteDetailsId == id));
+            else
+            {
+                return _mapper.Map<List<QuoteDto>>(
+                    _context.Quotes.FirstOrDefault(x => x.QuoteDetailsId == id));
+            }
         }
     }
 }

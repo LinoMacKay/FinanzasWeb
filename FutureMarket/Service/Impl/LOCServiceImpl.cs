@@ -72,14 +72,12 @@ namespace FoodYeah.Service.Impl
             var customer = _context.Customers.Single(x=>x.CustomerId == target.CustomerId);
 
             List<Order> Orders = _context.Orders.Where(x => x.CustomerId == customer.CustomerId).ToList();
-            if (Orders.Count == 0)
-            {
+           
+            target.AvalibleLineOfCredit = model.AvalibleLineOfCredit;
+            target.Rate = model.Rate;
+            target.TotalLineOfCredit = model.TotalLineOfCredit;
+            target.TypeRate = model.TypeRate;
 
-                target.Rate = model.Rate;
-                target.TotalLineOfCredit = model.TotalLineOfCredit;
-                target.TypeRate = model.TypeRate;
-                target.AvalibleLineOfCredit = model.TotalLineOfCredit;
-            }
             _context.SaveChanges();
         }
     }

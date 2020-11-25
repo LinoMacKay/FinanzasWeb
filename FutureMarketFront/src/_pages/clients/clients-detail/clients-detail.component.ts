@@ -36,6 +36,7 @@ export class ClientsDetailComponent implements OnInit {
   dataQuotes: MatTableDataSource<any>;
   frecuenciaString:string;
   editableTypeRate:number;
+  editableAvalibleLineOfCredit:number;
   oldrate:number;
   displayedQuoteColumns: string[] = ['numberQuotes','frecuency','interestRate','actualDebt','totalDebt','currency','actions'];
   displayedColumns: string[] = ['Id','Descripcion','Estado'];
@@ -65,8 +66,10 @@ export class ClientsDetailComponent implements OnInit {
       this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.rate
+      this.editableAvalibleLineOfCredit = this.client.loc.avalibleLineOfCredit
       this.oldrate = this.client.loc.rate
       this.editableTypeRate = this.client.loc.typeRate
+
 
       if(this.editableTypeRate == 3)
       this.tasa = "Tasa Simple Anual"
@@ -104,7 +107,7 @@ export class ClientsDetailComponent implements OnInit {
     let Loc = new LOC(); 
     Loc.rate = this.editableTea
     Loc.totalLineOfCredit = this.editableLineOfCredit
-
+    Loc.avalibleLineOfCredit = this.editableAvalibleLineOfCredit    
     if(this.tasa == "TSA")
     this.editableTypeRate = 3
 
@@ -127,6 +130,7 @@ export class ClientsDetailComponent implements OnInit {
           this.editableLineOfCredit = this.client.loc.totalLineOfCredit
           this.editableTea = this.client.loc.rate
           this.editableTypeRate = this.client.loc.typeRate
+          
           this.matSnackBar.open('Se actualizó correctamente','Aceptar',{
             duration:2000
           });        })

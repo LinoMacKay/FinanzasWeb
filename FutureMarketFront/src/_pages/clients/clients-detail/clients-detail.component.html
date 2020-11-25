@@ -20,9 +20,11 @@
             <li><h2>Apellido del cliente: <h3> {{client.customerLastName}} </h3></h2></li>            
           </ul>  
           <ul id="details">
-            <li><h2>Linea de credito disponible: <h3>{{client.loc.avalibleLineOfCredit}} <button style="margin-left:10px"  matTooltip="Dinero disponible a usar" mat-mini-fab color="primary" >
-              <mat-icon>help</mat-icon>
-            </button> </h3> </h2></li>
+            <li><h2>Linea de credito disponible: <h3> <mat-form-field appearance="outline">
+              <input matInput [(ngModel)]="editableAvalibleLineOfCredit" readonly [readOnly]="readonly">
+          </mat-form-field><button style="margin-left:10px" matTooltip="Dinero disponible en la linea de crédito" mat-mini-fab color="primary" >
+            <mat-icon>help</mat-icon>
+          </button> </h3></h2></li>     
             <li><h2>Linea de credito total: <h3> <mat-form-field appearance="outline">
                 <input matInput [(ngModel)]="editableLineOfCredit" readonly [readOnly]="readonly">
             </mat-form-field><button style="margin-left:10px" matTooltip="Dinero máximo disponible en la linea de crédito" mat-mini-fab color="primary" >

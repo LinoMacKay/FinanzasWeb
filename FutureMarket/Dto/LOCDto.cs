@@ -32,6 +32,7 @@ namespace FoodYeah.Dto
         public int LOCId { get; set; }
         public decimal Rate { get; set; }
         public TypeRate TypeRate { get; set; }
+        public decimal AvalibleLineOfCredit { get; set; }
         public decimal TotalLineOfCredit { get; set; }
        
     }
