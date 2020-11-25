@@ -18,14 +18,16 @@ namespace FoodYeah.Service.Impl
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly TransactionService _transactionService;
+        private readonly QuoteDetailService _quoteDetailService;
         
 
         public QuoteServiceImpl(ApplicationDbContext context,
-            IMapper mapper,TransactionService transactionService)
+            IMapper mapper,TransactionService transactionService, QuoteDetailService quoteDetailService)
         {
             _context = context;
             _mapper = mapper;
             _transactionService = transactionService;
+            _quoteDetailService = quoteDetailService;
         }
 
         public decimal CurrencyConverterDollars(decimal price)
@@ -135,6 +137,12 @@ namespace FoodYeah.Service.Impl
             foreach (Quote cuota in cuotas)
                 DeudaTotal += cuota.Value;
             quoteDetail.LastTotal = DeudaTotal;
+
+            if(cuotas.Count == 0)
+            {
+                _quoteDetailService.Remove(quoteDetail.QuoteDetailsId);
+            }
+
             _context.SaveChanges();
         }
 
