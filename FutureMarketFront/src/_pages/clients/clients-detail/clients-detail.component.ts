@@ -108,6 +108,7 @@ export class ClientsDetailComponent implements OnInit {
     Loc.rate = this.editableTea
     Loc.totalLineOfCredit = this.editableLineOfCredit
     Loc.avalibleLineOfCredit = this.editableAvalibleLineOfCredit    
+
     if(this.tasa == "TSA")
     this.editableTypeRate = 3
 
@@ -120,7 +121,15 @@ export class ClientsDetailComponent implements OnInit {
 
 
     Loc.typeRate = this.editableTypeRate
-    
+    if(this.editableAvalibleLineOfCredit > this.editableLineOfCredit){
+      this.matSnackBar.open('La linea de credito disponible debe ser como maximo la total','Aceptar',{
+        duration:2000
+      });    
+      this.editableAvalibleLineOfCredit   = this.client.loc.avalibleLineOfCredit
+    }
+    else{
+
+
     if(this.editableTea > 0 ){
     this.locservice.updateLOC(locId,Loc).subscribe(
       data=>{
@@ -137,12 +146,14 @@ export class ClientsDetailComponent implements OnInit {
       }
     )
     }
-    else{
+    else {
       this.editableTea = this.oldrate
       this.matSnackBar.open('La tasa debe ser mayor a 0','Cerrar',{
         duration:2000
       })
     }
+  }
+
     }
     openDialog(row) {
       this.dialog.open(ClientdetailpaydialogComponent, {
