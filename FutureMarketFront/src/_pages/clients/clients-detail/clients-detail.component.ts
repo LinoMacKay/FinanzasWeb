@@ -31,6 +31,7 @@ export class ClientsDetailComponent implements OnInit {
   editableTea:number;
   editableLineOfCredit:number;
   value = 100;
+  showvalue:number;
   User:string;
   dataTransactions: MatTableDataSource<any>;
   dataQuotes: MatTableDataSource<any>;
@@ -64,7 +65,7 @@ export class ClientsDetailComponent implements OnInit {
     this.customerService.getById(this.id).subscribe((data:Customer)=>{
       this.client = data
       this.value = (Math.round(this.client.loc.avalibleLineOfCredit) /this.client.loc.totalLineOfCredit)*100
-
+      this.showvalue = Math.round(this.client.loc.avalibleLineOfCredit)
 
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.rate
