@@ -141,6 +141,7 @@ export class ClientsDetailComponent implements OnInit {
           this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
           this.editableLineOfCredit = this.client.loc.totalLineOfCredit
           this.editableTea = this.client.loc.rate
+          this.showvalue = Math.round(this.client.loc.avalibleLineOfCredit)
           this.editableTypeRate = this.client.loc.typeRate
           
           this.matSnackBar.open('Se actualizó correctamente','Aceptar',{
