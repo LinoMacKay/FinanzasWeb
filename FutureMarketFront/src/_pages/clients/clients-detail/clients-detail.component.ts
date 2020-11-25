@@ -63,10 +63,12 @@ export class ClientsDetailComponent implements OnInit {
     });
     this.customerService.getById(this.id).subscribe((data:Customer)=>{
       this.client = data
-      this.value = (this.client.loc.avalibleLineOfCredit /this.client.loc.totalLineOfCredit)*100
+      this.value = (Math.round(this.client.loc.avalibleLineOfCredit) /this.client.loc.totalLineOfCredit)*100
+
+
       this.editableLineOfCredit = this.client.loc.totalLineOfCredit
       this.editableTea = this.client.loc.rate
-      this.editableAvalibleLineOfCredit = this.client.loc.avalibleLineOfCredit
+      this.editableAvalibleLineOfCredit = Math.round(this.client.loc.avalibleLineOfCredit)
       this.oldrate = this.client.loc.rate
       this.editableTypeRate = this.client.loc.typeRate
 
