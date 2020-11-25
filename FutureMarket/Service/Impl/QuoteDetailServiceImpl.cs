@@ -86,6 +86,7 @@ namespace FoodYeah.Service.Impl
             
             decimal e = Convert.ToDecimal(Math.Pow((1 + Decimal.ToDouble(tasaConvertida)), model.NumberQuotes));
             decimal quote = price * ((tasaConvertida * e)/(e - 1));
+
             List<Quote> cuotas = new List<Quote>();
             decimal Total = 0m;
             var primerDiaDePago = DateTime.Today;

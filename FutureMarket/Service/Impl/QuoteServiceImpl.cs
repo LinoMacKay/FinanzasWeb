@@ -108,7 +108,7 @@ namespace FoodYeah.Service.Impl
             }
             else
             {
-                Loc.AvalibleLineOfCredit += amount;
+               
             }
             var client = _context.Customers.Single(x => x.CustomerId == Loc.CustomerId);
             if( amount < quote.Value + quote.Interest)
@@ -120,7 +120,9 @@ namespace FoodYeah.Service.Impl
             }
             else if(quote.Interest + quote.Value == amount) 
             {
+                Loc.AvalibleLineOfCredit += quote.Value;
                 quote.Value -= amount;
+
                 _transactionService.Create(new TransactionCreateDto
                 { CustomerId = client.CustomerId, Description = "Se ha pagado la cuota totalmente en valor de: " + amount, Status = "Accepted" });
 
