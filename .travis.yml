@@ -15,4 +15,4 @@ deploy:
     script: bash travis.sh
     skip_cleanup: true
     on:
-      branches: Feature-Operations    
+      branch: Feature-Operations    
