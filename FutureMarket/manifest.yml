@@ -1,5 +1,5 @@
 applications:
-  - name: finanzas-api
+  - name: Evo-Api-FoodYeah
     memory: 512MB
     instances: 1
     random-route: true
