@@ -8,7 +8,7 @@
 /Documentos
 /Parcial
 manifest.yml
-appsettings.json
+
 *.suo
 *.user
 *.userosscache
